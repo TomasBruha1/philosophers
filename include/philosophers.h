@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:08:33 by tbruha            #+#    #+#             */
-/*   Updated: 2025/02/13 15:15:10 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/02/15 14:18:20 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,18 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdbool.h>
+# include <pthread.h>
 
 // STRUCTS
+
+typedef struct s_philo
+{
+	int     number_of_philosophers;
+	double  time_to_die;
+	double  time_to_eat;
+	double  time_to_sleep;
+//	int     number_of_times_each_philosopher_must_eat;
+}			t_philo;
 
 // FUNCTIONS
 
