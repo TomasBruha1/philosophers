@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:08:33 by tbruha            #+#    #+#             */
-/*   Updated: 2025/02/15 14:18:20 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/02/15 21:16:59 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_philo
 	double  time_to_eat;
 	double  time_to_sleep;
 //	int     number_of_times_each_philosopher_must_eat;
+	bool	fork; // maybe??
 }			t_philo;
 
 // FUNCTIONS
