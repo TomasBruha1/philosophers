@@ -6,17 +6,19 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:11:11 by tbruha            #+#    #+#             */
-/*   Updated: 2025/02/15 21:30:02 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/03/04 19:52:29 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // Philosophy -> from Greek, philosophia, literally "love of wisdom".
 
-// DO NOW: Google and watch some videos to get better broad understanding.
+// DO NOW: Test gettimeoftheday function.
 
+// Test the "deposit 200 & 300 money test to see how it works."
 // Make philo struct.
+// Check valid input
 // table with forks struct??
-// mutaxes to lock forks
+// mutexes to lock forks
 
 // notes to research:
 // What is threading? What is mutex?
@@ -45,6 +47,7 @@ int main(void)
 	pthread_t	t1;
 	pthread_t	t2;
 	
+	// last argument of pthread_create is argument for "*action".
 	if (pthread_create(&t1, NULL, &action, NULL) != 0)
 		return (2);
 	if (pthread_create(&t2, NULL, &action, NULL) != 0)
@@ -59,3 +62,4 @@ int main(void)
 // ----------------------------------------------------------------------------
 
 // RTFM -> kidding -> read the subject and go from there. // DONE
+// Google and watch some videos to get better broad understanding. // DONE
