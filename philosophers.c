@@ -6,84 +6,85 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:11:11 by tbruha            #+#    #+#             */
-/*   Updated: 2025/03/05 15:27:18 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/03/06 16:04:43 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// Philosophy -> from Greek, philosophia, literally "love of wisdom".
-
-// DO NOW NOW: Test gettimeofday function. Settimeofday to 0?
+// DO NOW NOW: Test gettimeofday function. Settimeofday to 0? PRINT IT
 
 // Make philo struct.
+// color code your philo messages
 // Check valid input
 // table with forks struct??
 // mutexes to lock forks
+// write atoi
+// init func for all the struct and philos. How to store multiple philos? I don't get it.
+// create a philo routine
+// create death check
+// Lot of stuff using size_t why? Why not just int?? Maybe put int everywhere and see.
 
 // notes to research:
 // What are the test cases and input that I need to run successfully?
-// 5 800 200 200 (7)
+// 5 800 200 200 (7) -> rest of the cases by skvackov
 // What is threading? What is mutex? // DONE
 // Learn functions: "gettimeofday", "pthread_create", "pthread_detach"
 // ditto-> "pthread_join", "pthread_mutex_init", "pthread_mutex_destroy" // DONE
 // ditto-> "pthread_mutex_lock", "pthread_mutex_unlock" // DONE
 // read up on pipex on gitbook and try to understand it.
-
-// gcc -pthread -Wall -Wextra -Werror
+// Philosophy -> from Greek, philosophia, literally "love of wisdom".
 
 #include "include/philosophers.h"
 
-int				g_balance;
-pthread_mutex_t	g_mutex;
-
-int	read_balance()
+// This function will return current time of the simulation.
+int	get_time(struct timeval time)
 {
-	usleep(250000);
-	return (g_balance);
+	time.tv_sec = gettimeofday;
+	
+	return (time);
 }
 
-void	*deposit(void *deposit)
+// Check if all the input is valid and we can proceed, otherwise exit.
+int	check_args(char **argv)
 {
-	pthread_mutex_lock(&g_mutex);
-	read_balance();
-	usleep(250000);
-	g_balance += *(int *)deposit;
-	pthread_mutex_unlock(&g_mutex);
-	return (NULL);
+	(void)argv;
+	return (0);
 }
 
-int main(void)
+// Initialize the program and structs here.
+void	init_program(t_table *main, char **argv)
 {
-	struct timeval	tv;
+	(void)main;
+	if (!check_args(argv)) // TO DO
+		printf("Args are OK.\n");
+	else
+		printf("Args are NOT OK.\n");
+	main->start = get_time(); // this will be for start.
+}
+
+int main(int argc, char **argv)
+{
+	t_table		main;
 	
 	pthread_t		t1;
 	pthread_t		t2;
-	int				deposit_1;
-	int				deposit_2;
-
-	pthread_mutex_init(&g_mutex, NULL);
-	deposit_1 = 300;
-	deposit_2 = 200;
-	gettimeofday(&tv, NULL);
-	printf("time now: %ld\n", tv.tv_sec);
-	printf("Balance before deposits is %d\n", g_balance);
-	// last argument of pthread_create is argument for "*action".
-	if (pthread_create(&t1, NULL, &deposit, &deposit_1) != 0)
-		return (2);
-	if (pthread_create(&t2, NULL, &deposit, &deposit_2) != 0)
-		return (2);
-	if (pthread_join(t1, NULL) != 0)
-		return (2);
-	if (pthread_join(t2, NULL) != 0)
-		return (2);
-	pthread_mutex_destroy(&g_mutex);
-	gettimeofday(&tv, NULL);
-	printf("time later: %ld\n", tv.tv_usec);
-	printf("Balance after deposits is %d\n", g_balance);
+	
+	(void)t1;
+	(void)t2;
+	// if (argc < 5 || argc > 6)
+	// 	error_args();
+	init_program(&main, argv); // TO DO
+	get_time(main.start);
+	gettimeofday(&main.start, NULL);
+	printf("time @ start: %ld\n", main.start.tv_sec);
+	sleep(2);
+	gettimeofday(&main.now, NULL);
+	printf("time now: %ld\n", main.now.tv_sec);
 	return (EXIT_SUCCESS);
 }
 
 // ----------------------------------------------------------------------------
 
+// gcc -pthread -Wall -Wextra -Werror // DONE
 // RTFM -> kidding -> read the subject and go from there. // DONE
 // Google and watch some videos to get better broad understanding. // DONE
 // Test the "deposit 200 & 300 money test to see how it works." // DONE
