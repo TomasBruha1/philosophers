@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:08:33 by tbruha            #+#    #+#             */
-/*   Updated: 2025/03/06 15:16:42 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/03/06 17:02:10 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct s_table
 	t_philo			*philo; // how to store multiple philos here?
 	pthread_mutex_t	mutex;
 	struct timeval	start;
-	struct timeval	now;
+	struct timeval	now; // do I need that one? I can just get the NOW and use it.
 	
 }				t_table;
 // FUNCTIONS

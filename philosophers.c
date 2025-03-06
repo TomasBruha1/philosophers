@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:11:11 by tbruha            #+#    #+#             */
-/*   Updated: 2025/03/06 16:04:43 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/03/06 17:06:38 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,13 @@
 #include "include/philosophers.h"
 
 // This function will return current time of the simulation.
-int	get_time(struct timeval time)
+// NOW IT IS RETURNING TIME FROM EPOCH IN MILISECONDS.
+long int	get_time(t_table *main)
 {
-	time.tv_sec = gettimeofday;
+	long int time;
 	
+	time = main->start.tv_sec * 1000 + main->start.tv_usec / 1000;
+	time = time - (main->start.tv_sec * 1000 - main->start.tv_usec / 1000);
 	return (time);
 }
 
@@ -53,12 +56,11 @@ int	check_args(char **argv)
 // Initialize the program and structs here.
 void	init_program(t_table *main, char **argv)
 {
-	(void)main;
 	if (!check_args(argv)) // TO DO
 		printf("Args are OK.\n");
 	else
 		printf("Args are NOT OK.\n");
-	main->start = get_time(); // this will be for start.
+	gettimeofday(&main->start, NULL); // this will be for start.
 }
 
 int main(int argc, char **argv)
@@ -70,10 +72,12 @@ int main(int argc, char **argv)
 	
 	(void)t1;
 	(void)t2;
+	(void)argc;
 	// if (argc < 5 || argc > 6)
 	// 	error_args();
 	init_program(&main, argv); // TO DO
-	get_time(main.start);
+	
+	printf("Time from Linux Epoch in miliseconds: %ld\n", get_time(&main));
 	gettimeofday(&main.start, NULL);
 	printf("time @ start: %ld\n", main.start.tv_sec);
 	sleep(2);
