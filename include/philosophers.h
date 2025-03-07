@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:08:33 by tbruha            #+#    #+#             */
-/*   Updated: 2025/03/06 17:02:10 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/03/07 12:06:33 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,29 @@ typedef struct s_philo
 {
 	pthread_t		philo;
 	int     		index;
-	double  		time_to_die;
-	double  		time_to_eat;
-	double  		time_to_sleep;
-	int     		number_of_times_each_philosopher_must_eat;
-	bool			fork; // maybe??
-	pthread_mutex_t	mutex_fork;
+	size_t			time_to_die;
+	size_t			time_to_eat;
+	size_t			time_to_sleep;
+	bool			fork_left; // own
+	bool			fork_right; // borrowed, Will this work?
+	pthread_mutex_t	mutex_fork_left;
+	pthread_mutex_t	mutex_fork_right;
+	int				times_eaten;
+	
 }				t_philo;
 
 typedef struct s_table
 {
 	int				number_of_philosophers;
-	t_philo			*philo; // how to store multiple philos here?
-	pthread_mutex_t	mutex;
-	struct timeval	start;
-	struct timeval	now; // do I need that one? I can just get the NOW and use it.
-	
+	t_philo			*philos; // array of philos [i]
+	size_t			time_to_die;
+	size_t			time_to_eat;
+	size_t			time_to_sleep;
+	pthread_mutex_t	mutex; // just coz
+	long int		start;
+	int     		number_of_times_each_philosopher_must_eat; // array?
 }				t_table;
+
 // FUNCTIONS
 
 // utils.c

@@ -6,45 +6,34 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:11:11 by tbruha            #+#    #+#             */
-/*   Updated: 2025/03/06 17:06:38 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/03/07 12:07:23 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// DO NOW NOW: Test gettimeofday function. Settimeofday to 0? PRINT IT
+// DO NOW NOW: init func for all the struct and philos. How to store multiple philos -> array.
 
-// Make philo struct.
-// color code your philo messages
 // Check valid input
-// table with forks struct??
+// color code your philo messages
 // mutexes to lock forks
 // write atoi
-// init func for all the struct and philos. How to store multiple philos? I don't get it.
 // create a philo routine
 // create death check
 // Lot of stuff using size_t why? Why not just int?? Maybe put int everywhere and see.
 
 // notes to research:
-// What are the test cases and input that I need to run successfully?
-// 5 800 200 200 (7) -> rest of the cases by skvackov
-// What is threading? What is mutex? // DONE
 // Learn functions: "gettimeofday", "pthread_create", "pthread_detach"
-// ditto-> "pthread_join", "pthread_mutex_init", "pthread_mutex_destroy" // DONE
-// ditto-> "pthread_mutex_lock", "pthread_mutex_unlock" // DONE
 // read up on pipex on gitbook and try to understand it.
 // Philosophy -> from Greek, philosophia, literally "love of wisdom".
 
 #include "include/philosophers.h"
 
-// This function will return current time of the simulation.
-// NOW IT IS RETURNING TIME FROM EPOCH IN MILISECONDS.
-long int	get_time(t_table *main)
+// Routine includes philos eating, sleeping and thinking.
+void	routine(t_table *table)
 {
-	long int time;
-	
-	time = main->start.tv_sec * 1000 + main->start.tv_usec / 1000;
-	time = time - (main->start.tv_sec * 1000 - main->start.tv_usec / 1000);
-	return (time);
+	(void)table;
 }
+
+
 
 // Check if all the input is valid and we can proceed, otherwise exit.
 int	check_args(char **argv)
@@ -54,35 +43,32 @@ int	check_args(char **argv)
 }
 
 // Initialize the program and structs here.
-void	init_program(t_table *main, char **argv)
+void	init_program(t_table *table, char **argv)
 {
+	struct timeval	time;
+	
 	if (!check_args(argv)) // TO DO
-		printf("Args are OK.\n");
+	printf("Args are OK.\n");
 	else
-		printf("Args are NOT OK.\n");
-	gettimeofday(&main->start, NULL); // this will be for start.
+	printf("Args are NOT OK.\n");
+	sleep(1);
+	gettimeofday(&time, NULL); // start time
+	table->start = time.tv_sec * 1000 + time.tv_usec / 1000; // start time
 }
 
 int main(int argc, char **argv)
 {
-	t_table		main;
+	t_table		table;
 	
-	pthread_t		t1;
-	pthread_t		t2;
-	
-	(void)t1;
-	(void)t2;
 	(void)argc;
 	// if (argc < 5 || argc > 6)
 	// 	error_args();
-	init_program(&main, argv); // TO DO
-	
-	printf("Time from Linux Epoch in miliseconds: %ld\n", get_time(&main));
-	gettimeofday(&main.start, NULL);
-	printf("time @ start: %ld\n", main.start.tv_sec);
-	sleep(2);
-	gettimeofday(&main.now, NULL);
-	printf("time now: %ld\n", main.now.tv_sec);
+	init_program(&table, argv); // TO DO
+	printf("Time from the start: %ld\n", get_time(&table));
+	usleep(400000);
+	printf("Time from the start: %ld\n", get_time(&table));
+	usleep(550000);
+	printf("Time from the start: %ld\n", get_time(&table));
 	return (EXIT_SUCCESS);
 }
 
@@ -92,3 +78,10 @@ int main(int argc, char **argv)
 // RTFM -> kidding -> read the subject and go from there. // DONE
 // Google and watch some videos to get better broad understanding. // DONE
 // Test the "deposit 200 & 300 money test to see how it works." // DONE
+// Test gettimeofday function. Settimeofday to 0? PRINT IT // DONE
+// What are the test cases and input that I need to run successfully? // DONE
+// 5 800 200 200 (7) -> rest of the cases by skvackov // DONE
+// What is threading? What is mutex? // DONE
+// ditto-> "pthread_join", "pthread_mutex_init", "pthread_mutex_destroy" // DONE
+// ditto-> "pthread_mutex_lock", "pthread_mutex_unlock" // DONE
+// Make philo struct. // DONE
