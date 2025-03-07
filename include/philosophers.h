@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:08:33 by tbruha            #+#    #+#             */
-/*   Updated: 2025/03/07 12:06:33 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/03/07 16:12:02 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ typedef struct s_philo
 	size_t			time_to_die;
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
-	bool			fork_left; // own
-	bool			fork_right; // borrowed, Will this work?
+	bool			fork_left; // own, 0 = on the table, 1 = in hand
+	bool			fork_right; // borrowed, ditto
 	pthread_mutex_t	mutex_fork_left;
 	pthread_mutex_t	mutex_fork_right;
 	int				times_eaten;
@@ -41,12 +41,12 @@ typedef struct s_philo
 
 typedef struct s_table
 {
-	int				number_of_philosophers;
+	size_t			number_of_philosophers;
 	t_philo			*philos; // array of philos [i]
 	size_t			time_to_die;
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
-	pthread_mutex_t	mutex; // just coz
+	pthread_mutex_t	mutex; // just coz for now...
 	long int		start;
 	int     		number_of_times_each_philosopher_must_eat; // array?
 }				t_table;
@@ -54,8 +54,9 @@ typedef struct s_table
 // FUNCTIONS
 
 // utils.c
-void	error_args();
-// get_time(t_table main);
+void		error_args();
+long int	get_time(t_table *table);
+size_t	ft_atoi(char *str);
 
 // philosophers.c
 

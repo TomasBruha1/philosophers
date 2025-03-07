@@ -6,11 +6,11 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:11:11 by tbruha            #+#    #+#             */
-/*   Updated: 2025/03/07 12:07:23 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/03/07 16:43:51 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// DO NOW NOW: init func for all the struct and philos. How to store multiple philos -> array.
+// DO NOW: init ft for struct and philos. How to store multiple philos -> array.
 
 // Check valid input
 // color code your philo messages
@@ -18,7 +18,6 @@
 // write atoi
 // create a philo routine
 // create death check
-// Lot of stuff using size_t why? Why not just int?? Maybe put int everywhere and see.
 
 // notes to research:
 // Learn functions: "gettimeofday", "pthread_create", "pthread_detach"
@@ -33,7 +32,22 @@ void	routine(t_table *table)
 	(void)table;
 }
 
-
+void	init_philos(t_table *table)
+{
+	// int	i;
+	
+	// i = 0;
+	// // malloc *philos CHECK THIS
+	// table->philos = malloc(sizeof(t_philo) * table->number_of_philosophers);
+	// while (i < table->number_of_philosophers)
+	// {
+	// 	table->philos[i] = t_philo;
+		
+	// 	i++;
+	// }
+	
+	(void)table;
+}
 
 // Check if all the input is valid and we can proceed, otherwise exit.
 int	check_args(char **argv)
@@ -47,12 +61,22 @@ void	init_program(t_table *table, char **argv)
 {
 	struct timeval	time;
 	
-	if (!check_args(argv)) // TO DO
-	printf("Args are OK.\n");
+	table->number_of_philosophers = ft_atoi(argv[1]);
+	// t_philo			*philos; // array of philos [i] // TO DO
+	table->time_to_die = ft_atoi(argv[2]);
+	table->time_to_eat = ft_atoi(argv[3]);
+	table->time_to_sleep = ft_atoi(argv[4]);
+	if (argv[5])
+		table->number_of_times_each_philosopher_must_eat = ft_atoi(argv[5]);
 	else
-	printf("Args are NOT OK.\n");
-	sleep(1);
-	gettimeofday(&time, NULL); // start time
+		table->number_of_times_each_philosopher_must_eat = 0;
+	// pthread_mutex_t	mutex; // just coz
+	init_philos(table);
+	if (!check_args(argv)) // TO DO // before or after init?
+		printf("Args are OK.\n");
+	else
+		printf("Args are NOT OK.\n");
+	gettimeofday(&time, NULL); // start time // possible init_time
 	table->start = time.tv_sec * 1000 + time.tv_usec / 1000; // start time
 }
 
@@ -65,9 +89,11 @@ int main(int argc, char **argv)
 	// 	error_args();
 	init_program(&table, argv); // TO DO
 	printf("Time from the start: %ld\n", get_time(&table));
-	usleep(400000);
+	usleep(300000);
 	printf("Time from the start: %ld\n", get_time(&table));
-	usleep(550000);
+	usleep(300000);
+	printf("Time from the start: %ld\n", get_time(&table));
+	usleep(300000);
 	printf("Time from the start: %ld\n", get_time(&table));
 	return (EXIT_SUCCESS);
 }
@@ -85,3 +111,4 @@ int main(int argc, char **argv)
 // ditto-> "pthread_join", "pthread_mutex_init", "pthread_mutex_destroy" // DONE
 // ditto-> "pthread_mutex_lock", "pthread_mutex_unlock" // DONE
 // Make philo struct. // DONE
+// Lot of stuff using size_t why? Why not just int?? // DONE
