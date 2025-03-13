@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:11:11 by tbruha            #+#    #+#             */
-/*   Updated: 2025/03/07 16:43:51 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/03/13 17:44:46 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@
 // write atoi
 // create a philo routine
 // create death check
+// If I don't use size_t in atoi it will sort out bad input. TO DO.
+// How to deal with 5th arg being there and not. NULL / zero what??
+// How to differentiate forks, with numbers? I think that left/right won't work.
+// When does it start, once I do pthread_create it starts right away? Do I want that?
+/
 
 // notes to research:
 // Learn functions: "gettimeofday", "pthread_create", "pthread_detach"

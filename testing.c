@@ -34,7 +34,7 @@ int main(void)
 	gettimeofday(&tv, NULL);
 	printf("time now: %ld\n", tv.tv_sec);
 	printf("Balance before deposits is %d\n", g_balance);
-	// last argument of pthread_create is argument for "*action".
+	// last argument of pthread_create is argument for "&deposit".
 	if (pthread_create(&t1, NULL, &deposit, &deposit_1) != 0)
 		return (2);
 	if (pthread_create(&t2, NULL, &deposit, &deposit_2) != 0)
