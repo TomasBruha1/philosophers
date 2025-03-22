@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:08:33 by tbruha            #+#    #+#             */
-/*   Updated: 2025/03/07 16:12:02 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/03/22 14:30:57 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 // HEADERS
 
+# include <stddef.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -36,8 +37,7 @@ typedef struct s_philo
 	pthread_mutex_t	mutex_fork_left;
 	pthread_mutex_t	mutex_fork_right;
 	int				times_eaten;
-	
-}				t_philo;
+}					t_philo;
 
 typedef struct s_table
 {

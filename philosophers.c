@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:11:11 by tbruha            #+#    #+#             */
-/*   Updated: 2025/03/13 17:44:46 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/03/22 16:55:43 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 // Check valid input
 // color code your philo messages
+// Don't forget to join threads at the end.
 // mutexes to lock forks
 // write atoi
 // create a philo routine
@@ -22,7 +23,7 @@
 // How to deal with 5th arg being there and not. NULL / zero what??
 // How to differentiate forks, with numbers? I think that left/right won't work.
 // When does it start, once I do pthread_create it starts right away? Do I want that?
-/
+
 
 // notes to research:
 // Learn functions: "gettimeofday", "pthread_create", "pthread_detach"
@@ -32,24 +33,44 @@
 #include "include/philosophers.h"
 
 // Routine includes philos eating, sleeping and thinking.
-void	routine(t_table *table)
+void	*routine(void *arg)
 {
+	t_table	*table = (t_table *)arg;
 	(void)table;
+	write(1, "Hello\n", 6);
+	return (NULL);
 }
 
 void	init_philos(t_table *table)
 {
-	// int	i;
+	size_t	i;
 	
-	// i = 0;
-	// // malloc *philos CHECK THIS
-	// table->philos = malloc(sizeof(t_philo) * table->number_of_philosophers);
-	// while (i < table->number_of_philosophers)
-	// {
-	// 	table->philos[i] = t_philo;
+	i = 0;
+	// malloc *philos CHECK THIS
+	table->philos = malloc(sizeof(t_philo) * table->number_of_philosophers);
+	while (i < table->number_of_philosophers)
+	{
+		// When . and when ->?? I thought array is a pointer.
+		if (pthread_create(&table->philos[i].philo, NULL, &routine, &table) != 0)
+			exit(EXIT_FAILURE);
 		
-	// 	i++;
-	// }
+		i++;
+		
+
+		//////////
+		
+		
+		// pthread_t		philo;
+		// int     			index;
+		// size_t			time_to_die;
+		// size_t			time_to_eat;
+		// size_t			time_to_sleep;
+		// bool			fork_left; // own, 0 = on the table, 1 = in hand
+		// bool			fork_right; // borrowed, ditto
+		// pthread_mutex_t	mutex_fork_left;
+		// pthread_mutex_t	mutex_fork_right;
+		// int				times_eaten;
+	}
 	
 	(void)table;
 }
@@ -77,6 +98,7 @@ void	init_program(t_table *table, char **argv)
 		table->number_of_times_each_philosopher_must_eat = 0;
 	// pthread_mutex_t	mutex; // just coz
 	init_philos(table);
+	usleep(10);
 	if (!check_args(argv)) // TO DO // before or after init?
 		printf("Args are OK.\n");
 	else
@@ -88,10 +110,11 @@ void	init_program(t_table *table, char **argv)
 int main(int argc, char **argv)
 {
 	t_table		table;
+	size_t			i;
 	
-	(void)argc;
-	// if (argc < 5 || argc > 6)
-	// 	error_args();
+	if (argc < 5 || argc > 6)
+		error_args();
+	i = 0;
 	init_program(&table, argv); // TO DO
 	printf("Time from the start: %ld\n", get_time(&table));
 	usleep(300000);
@@ -100,6 +123,11 @@ int main(int argc, char **argv)
 	printf("Time from the start: %ld\n", get_time(&table));
 	usleep(300000);
 	printf("Time from the start: %ld\n", get_time(&table));
+	while (i < table.number_of_philosophers)
+	{
+		if (pthread_join(table.philos[i].philo, NULL) != 0)
+			return (2);
+	}
 	return (EXIT_SUCCESS);
 }
 
