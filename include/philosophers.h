@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:08:33 by tbruha            #+#    #+#             */
-/*   Updated: 2025/03/22 14:30:57 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/03/26 19:59:05 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct s_philo
 typedef struct s_table
 {
 	size_t			number_of_philosophers;
-	t_philo			*philos; // array of philos [i]
+	t_philo			*philos;
 	size_t			time_to_die;
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
@@ -53,11 +53,17 @@ typedef struct s_table
 
 // FUNCTIONS
 
+// init.c
+void		init_philos(t_table *table);
+void		init_program(t_table *table, char **argv);
+
 // utils.c
 void		error_args();
 long int	get_time(t_table *table);
-size_t	ft_atoi(char *str);
+size_t		ft_atoi(char *str);
+int			check_args(char **argv);
 
 // philosophers.c
+void		*routine(void *arg);
 
 #endif

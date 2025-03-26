@@ -6,11 +6,18 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 15:14:43 by tbruha            #+#    #+#             */
-/*   Updated: 2025/03/07 16:12:39 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/03/26 19:59:33 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/philosophers.h"
+
+// Check if all the input is valid and we can proceed, otherwise exit.
+int	check_args(char **argv)
+{
+	(void)argv;
+	return (0);
+}
 
 // Prints error message and exit upon wrong number of inputs.
 void	error_args()

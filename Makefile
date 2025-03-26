@@ -6,31 +6,37 @@
 #    By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/15 16:15:26 by tbruha            #+#    #+#              #
-#    Updated: 2025/02/15 21:21:15 by tbruha           ###   ########.fr        #
+#    Updated: 2025/03/26 20:54:13 by tbruha           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# check fractol Makefile and make changes to the Makefile logic
-# future: CFLAGS, HEADERS, LIBS, INCLUDE all separate
+NAME		= philo
+CFLAGS		= -Wall -Wextra -Werror -g -pthread
+HEADERS		= -I include/ # I don't need it?
+RM			= rm -rf # force recursive remove
+CC			= cc
+MAKEFLAGS 	= --no-print-directory # silences "entering, leaving dir..."
 
-NAME 		= philosophers
-HEADERS 	= -I include
-LIBS 		= # Will I have one here??
-FLAGS 		= -Wall -Wextra -Werror -pthread
-INCLUDE		= 
-MAKEFLAGS	= --no-print-directory # silences "entering, leaving dir..."
-RM			= rm -fr
+SRC		= 	philosophers.c init.c utils.c #src/push_swap.c
 
-SRC 		= 
+OBJ		:=	$(SRC:%.c=%.o)
 
-OBJ 		= 
+all: $(NAME)
 
-all: ($NAME)
+$(NAME): $(OBJ)
+	@$(CC) $(CFLAGS) $(OBJ) $(HEADERS) -o $(NAME)
+
+%.o: %.c
+	@$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:
+	@$(RM) $(OBJ)
+	@echo "philo is clean"
 
-fclean:
+fclean:	clean
+	@$(RM) $(NAME)
+	@echo "philo is super clean"
 
-re: fclean ($NAME)
+re:	fclean all
 
-PHONY: clean fclean re 
+.PHONY:	all clean fclean re
