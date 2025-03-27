@@ -6,17 +6,17 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:11:11 by tbruha            #+#    #+#             */
-/*   Updated: 2025/03/27 15:46:39 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/03/27 21:23:52 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// DO NOW: init ft for struct and philos. How to store multiple philos -> array.
+// DO NOW: X is thinking message.
 
+// How to start the simulation at the same time -> bon_appetit how?
 // Check valid input
 // color code your philo messages
 // Don't forget to join threads at the end.
 // mutexes to lock forks
-// write atoi
 // create a philo routine
 // create death check
 // If I don't use size_t in atoi it will sort out bad input. TO DO.
@@ -32,16 +32,46 @@
 
 #include "include/philosophers.h"
 
+void	print_state(int philo, t_state state)
+{
+	if (state == 0)
+		printf("%d is thinking.\n", philo);
+	else if (state == 1)
+		printf("%d is eating.\n", philo);
+	else if (state == 2)
+		printf("%d is sleeping.\n", philo);
+	else if (state == 3)
+		printf("%d has taken a fork.\n", philo);
+	else if (state == 4)
+		printf("%d has died.\n", philo);
+}
+
+void	eating(t_philo *philo)
+{
+	(void)philo;
+}
+
+void	thinking(t_philo *philo)
+{
+	print_state(philo->index, THINKING);
+	print_state(philo->index, 0);
+	
+	// x is thinking
+	// x has taken fork
+	// x has taken the other fork
+	// exit and go to eating
+}
+
 // Routine includes philos eating, sleeping and thinking.
 void	*routine(void *arg)
 {
-	t_table	*table = (t_table *)arg;
-	(void)table; // delete later
+	t_philo	*philo = (t_philo *)arg;
+	(void)philo; // delete later
 	// wait while bon_appetit == false; set true after everything is ready.
+	thinking(philo);
 	// ft think -> odd philo first left fork // even philo right fork
 	// ft eat -> ft sleep
 	// 
-	write(1, "Hello\n", 6);
 	return (NULL);
 }
 
@@ -51,7 +81,7 @@ int main(int argc, char **argv)
 	size_t			i;
 	
 	if (argc < 5 || argc > 6)
-		error_args();
+	error_args();
 	i = 0;
 	init_program(&table, argv); // TO DO
 	printf("Time from the start: %ld\n", get_time(&table));
@@ -61,10 +91,10 @@ int main(int argc, char **argv)
 	printf("Time from the start: %ld\n", get_time(&table));
 	usleep(300000);
 	printf("Time from the start: %ld\n", get_time(&table));
-	while (i < table.number_of_philosophers)
+	while (i < table.nbr_of_philos)
 	{
 		if (pthread_join(table.philos[i].philo, NULL) != 0)
-			return (2);
+		return (2);
 	}
 	return (EXIT_SUCCESS);
 }
@@ -83,3 +113,5 @@ int main(int argc, char **argv)
 // ditto-> "pthread_mutex_lock", "pthread_mutex_unlock" // DONE
 // Make philo struct. // DONE
 // Lot of stuff using size_t why? Why not just int?? // DONE
+// write atoi // DONE
+// Init ft for struct and philos. How to store multiple philos -> array. // DONE
