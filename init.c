@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:07:39 by tbruha            #+#    #+#             */
-/*   Updated: 2025/03/26 19:57:35 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/03/27 15:08:03 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	init_philos(t_table *table)
 	size_t	i;
 	
 	i = 0;
-	// malloc *philos CHECK THIS
 	table->philos = malloc(sizeof(t_philo) * table->number_of_philosophers);
 	while (i < table->number_of_philosophers)
 	{
@@ -52,9 +51,10 @@ void	init_program(t_table *table, char **argv)
 	else
 		table->number_of_times_each_philosopher_must_eat = 0;
 	// pthread_mutex_t	mutex; // just coz
+	table->bon_appetit = false;
 	init_philos(table);
-	usleep(10);
-	if (!check_args(argv)) // TO DO // before or after init?
+	usleep(100);
+	if (!check_args(argv)) // TO DO // before or after init? error msgs in the function.
 		printf("Args are OK.\n");
 	else
 		printf("Args are NOT OK.\n");

@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:11:11 by tbruha            #+#    #+#             */
-/*   Updated: 2025/03/26 19:59:19 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/03/27 15:46:39 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,11 @@
 void	*routine(void *arg)
 {
 	t_table	*table = (t_table *)arg;
-	(void)table;
+	(void)table; // delete later
+	// wait while bon_appetit == false; set true after everything is ready.
+	// ft think -> odd philo first left fork // even philo right fork
+	// ft eat -> ft sleep
+	// 
 	write(1, "Hello\n", 6);
 	return (NULL);
 }

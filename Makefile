@@ -6,13 +6,13 @@
 #    By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/15 16:15:26 by tbruha            #+#    #+#              #
-#    Updated: 2025/03/26 20:54:13 by tbruha           ###   ########.fr        #
+#    Updated: 2025/03/27 13:12:26 by tbruha           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= philo
 CFLAGS		= -Wall -Wextra -Werror -g -pthread
-HEADERS		= -I include/ # I don't need it?
+HEADERS		= -I include/
 RM			= rm -rf # force recursive remove
 CC			= cc
 MAKEFLAGS 	= --no-print-directory # silences "entering, leaving dir..."
@@ -35,7 +35,7 @@ clean:
 
 fclean:	clean
 	@$(RM) $(NAME)
-	@echo "philo is super clean"
+	@echo "... and super clean"
 
 re:	fclean all
 

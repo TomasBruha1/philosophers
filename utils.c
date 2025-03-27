@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 15:14:43 by tbruha            #+#    #+#             */
-/*   Updated: 2025/03/26 19:59:33 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/03/27 15:43:35 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ long int	get_time(t_table *table)
 {
 	long int 		time;
 	struct timeval	current;
-	
+
 	gettimeofday(&current, NULL);
 	time = (current.tv_sec * 1000 + current.tv_usec / 1000) - table->start;
 	return (time);

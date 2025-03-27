@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:08:33 by tbruha            #+#    #+#             */
-/*   Updated: 2025/03/26 19:59:05 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/03/27 15:06:43 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ typedef struct s_philo
 	size_t			time_to_sleep;
 	bool			fork_left; // own, 0 = on the table, 1 = in hand
 	bool			fork_right; // borrowed, ditto
-	pthread_mutex_t	mutex_fork_left;
-	pthread_mutex_t	mutex_fork_right;
+	pthread_mutex_t	mutex_fork_left; // nbr same as index
+	pthread_mutex_t	mutex_fork_right; // nbr index + 1 % total number of philos
 	int				times_eaten;
 }					t_philo;
 
@@ -46,6 +46,7 @@ typedef struct s_table
 	size_t			time_to_die;
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
+	bool			bon_appetit;
 	pthread_mutex_t	mutex; // just coz for now...
 	long int		start;
 	int     		number_of_times_each_philosopher_must_eat; // array?
