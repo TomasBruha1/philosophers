@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:08:33 by tbruha            #+#    #+#             */
-/*   Updated: 2025/03/27 21:10:58 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/03/28 12:45:58 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,8 @@ typedef struct s_philo
 	size_t			time_to_die;
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
-	size_t			last_meal_ms; // if current - last > time_to_die == DEAD.
-//	bool			dead/alive flag??
-	size_t			nbr_of_philos;
+	size_t			last_meal_ms; // if current - last > time_to_die == DEAD. Check by waiter.
+//	bool			dead/alive flag?? moved to table, Do I need it here?
 	bool			fork_left; // own, 1 = available, 0 = not available -> in hand
 	bool			fork_right; // borrowed, ditto
 	pthread_mutex_t	mutex_fork_left; // nbr same as index
@@ -61,10 +60,13 @@ typedef struct s_table
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
 	bool			bon_appetit;
+	bool			*fork; // Still not sure how to manage this.
+	pthread_mutex_t	fork_mutex;
 	pthread_t		waiter; // monitor thread -> checking if philos are dead and if they ate enough.
 	pthread_mutex_t	mutex; // just coz for now...
 	long int		start;
 	int     		nbr_to_eat; // array?
+	bool			dead_flag;
 }				t_table;
 
 // FUNCTIONS

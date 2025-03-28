@@ -6,13 +6,14 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:11:11 by tbruha            #+#    #+#             */
-/*   Updated: 2025/03/27 21:23:52 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/03/28 12:47:04 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+// DO NOW NOW: Look at fork implementation of opened git.
 // DO NOW: X is thinking message.
 
-// How to start the simulation at the same time -> bon_appetit how?
+// How to start the simulation at the same time -> bon_appetit how? NOT NOW
 // Check valid input
 // color code your philo messages
 // Don't forget to join threads at the end.
@@ -23,6 +24,7 @@
 // How to deal with 5th arg being there and not. NULL / zero what??
 // How to differentiate forks, with numbers? I think that left/right won't work.
 // When does it start, once I do pthread_create it starts right away? Do I want that?
+// Check allowed functions -> no EXIT.
 
 
 // notes to research:
@@ -54,7 +56,6 @@ void	eating(t_philo *philo)
 void	thinking(t_philo *philo)
 {
 	print_state(philo->index, THINKING);
-	print_state(philo->index, 0);
 	
 	// x is thinking
 	// x has taken fork
@@ -66,7 +67,6 @@ void	thinking(t_philo *philo)
 void	*routine(void *arg)
 {
 	t_philo	*philo = (t_philo *)arg;
-	(void)philo; // delete later
 	// wait while bon_appetit == false; set true after everything is ready.
 	thinking(philo);
 	// ft think -> odd philo first left fork // even philo right fork
@@ -85,11 +85,7 @@ int main(int argc, char **argv)
 	i = 0;
 	init_program(&table, argv); // TO DO
 	printf("Time from the start: %ld\n", get_time(&table));
-	usleep(300000);
-	printf("Time from the start: %ld\n", get_time(&table));
-	usleep(300000);
-	printf("Time from the start: %ld\n", get_time(&table));
-	usleep(300000);
+	usleep(500000);
 	printf("Time from the start: %ld\n", get_time(&table));
 	while (i < table.nbr_of_philos)
 	{
