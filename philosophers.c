@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:11:11 by tbruha            #+#    #+#             */
-/*   Updated: 2025/03/28 12:47:04 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/03/28 13:53:51 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 // How to start the simulation at the same time -> bon_appetit how? NOT NOW
 // Check valid input
 // color code your philo messages
-// Don't forget to join threads at the end.
+// Don't forget to join threads at the end..
 // mutexes to lock forks
 // create a philo routine
 // create death check
