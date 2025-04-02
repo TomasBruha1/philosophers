@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:07:39 by tbruha            #+#    #+#             */
-/*   Updated: 2025/03/28 12:44:03 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/04/02 12:55:05 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	init_philos(t_table *table)
 void	init_program(t_table *table, char **argv)
 {
 	struct timeval	time;
+//	waiter pthread_t here?
 	
 	table->nbr_of_philos = ft_atoi(argv[1]);
 	table->time_to_die = ft_atoi(argv[2]);

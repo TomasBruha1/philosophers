@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:11:11 by tbruha            #+#    #+#             */
-/*   Updated: 2025/03/28 13:53:51 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/04/02 12:57:28 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,15 @@
 // DO NOW: X is thinking message.
 
 // How to start the simulation at the same time -> bon_appetit how? NOT NOW
-// Check valid input
+// Own sleep function.
+// Check valid input.
 // color code your philo messages
 // Don't forget to join threads at the end..
 // mutexes to lock forks
 // create a philo routine
 // create death check
 // If I don't use size_t in atoi it will sort out bad input. TO DO.
-// How to deal with 5th arg being there and not. NULL / zero what??
+// How to handle errors? Fts to FREE everything and exit. (no EXIT though)
 // How to differentiate forks, with numbers? I think that left/right won't work.
 // When does it start, once I do pthread_create it starts right away? Do I want that?
 // Check allowed functions -> no EXIT.
@@ -37,15 +38,15 @@
 void	print_state(int philo, t_state state)
 {
 	if (state == 0)
-		printf("%d is thinking.\n", philo);
+	printf("%d is thinking.\n", philo);
 	else if (state == 1)
-		printf("%d is eating.\n", philo);
+	printf("%d is eating.\n", philo);
 	else if (state == 2)
-		printf("%d is sleeping.\n", philo);
+	printf("%d is sleeping.\n", philo);
 	else if (state == 3)
-		printf("%d has taken a fork.\n", philo);
+	printf("%d has taken a fork.\n", philo);
 	else if (state == 4)
-		printf("%d has died.\n", philo);
+	printf("%d has died.\n", philo);
 }
 
 void	eating(t_philo *philo)
@@ -111,3 +112,4 @@ int main(int argc, char **argv)
 // Lot of stuff using size_t why? Why not just int?? // DONE
 // write atoi // DONE
 // Init ft for struct and philos. How to store multiple philos -> array. // DONE
+// How to deal with 5th arg being there and not. NULL / zero what?? // DONE
