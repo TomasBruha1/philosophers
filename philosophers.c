@@ -6,20 +6,23 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:11:11 by tbruha            #+#    #+#             */
-/*   Updated: 2025/04/02 12:57:28 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/04/02 17:04:48 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// DO NOW NOW: Look at fork implementation of opened git.
+// DO NOW NOW: Finish someone else's code.
+// DO NOW NOW NOW: Forks are the mutexis, same array as philos. &fork[i]
 // DO NOW: X is thinking message.
 
+// add start time to each philo as well?
+// what is meal_lock for?
 // How to start the simulation at the same time -> bon_appetit how? NOT NOW
 // Own sleep function.
 // Check valid input.
 // color code your philo messages
 // Don't forget to join threads at the end..
 // mutexes to lock forks
-// create a philo routine
+// create a philo routine.
 // create death check
 // If I don't use size_t in atoi it will sort out bad input. TO DO.
 // How to handle errors? Fts to FREE everything and exit. (no EXIT though)
@@ -37,8 +40,11 @@
 
 void	print_state(int philo, t_state state)
 {
+	
+	// add time to the message.
+	
 	if (state == 0)
-	printf("%d is thinking.\n", philo);
+	printf("%zu - %d is thinking.\n", get_time(), philo);
 	else if (state == 1)
 	printf("%d is eating.\n", philo);
 	else if (state == 2)
@@ -52,6 +58,7 @@ void	print_state(int philo, t_state state)
 void	eating(t_philo *philo)
 {
 	(void)philo;
+	print_state()
 }
 
 void	thinking(t_philo *philo)
