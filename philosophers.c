@@ -6,12 +6,11 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:11:11 by tbruha            #+#    #+#             */
-/*   Updated: 2025/04/02 17:04:48 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/04/04 15:29:57 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// DO NOW NOW: Finish someone else's code.
-// DO NOW NOW NOW: Forks are the mutexis, same array as philos. &fork[i]
+// DO NOW NOW NOW: Forks are the mutexes, same array as philos. &fork[i]
 // DO NOW: X is thinking message.
 
 // add start time to each philo as well?
@@ -29,6 +28,7 @@
 // How to differentiate forks, with numbers? I think that left/right won't work.
 // When does it start, once I do pthread_create it starts right away? Do I want that?
 // Check allowed functions -> no EXIT.
+// Make sure you pass 20 450/500 200 200
 
 
 // notes to research:
