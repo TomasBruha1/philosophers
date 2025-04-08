@@ -6,11 +6,13 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:11:11 by tbruha            #+#    #+#             */
-/*   Updated: 2025/04/04 15:29:57 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/04/08 17:28:49 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+// DO NOW NOW NOW NOW: Assign mutexes....
 // DO NOW NOW NOW: Forks are the mutexes, same array as philos. &fork[i]
+// DO Somewhere now here whatever: Where to INIT Forks?
 // DO NOW: X is thinking message.
 
 // add start time to each philo as well?
@@ -38,32 +40,32 @@
 
 #include "include/philosophers.h"
 
-void	print_state(int philo, t_state state)
+void	print_state(t_philo *philo, t_state state)
 {
 	
 	// add time to the message.
 	
 	if (state == 0)
-	printf("%zu - %d is thinking.\n", get_time(), philo);
+	printf("%zu - %d is thinking.\n", get_time(&philo->start), philo->index);
 	else if (state == 1)
-	printf("%d is eating.\n", philo);
+	printf("%zu - %d is eating.\n", get_time(&philo->start), philo->index);
 	else if (state == 2)
-	printf("%d is sleeping.\n", philo);
+	printf("%zu - %d is sleeping.\n", get_time(&philo->start), philo->index);
 	else if (state == 3)
-	printf("%d has taken a fork.\n", philo);
+	printf("%zu - %d has taken a fork.\n", get_time(&philo->start), philo->index);
 	else if (state == 4)
-	printf("%d has died.\n", philo);
+	printf("%zu - %d has died.\n", get_time(&philo->start), philo->index);
 }
 
 void	eating(t_philo *philo)
 {
 	(void)philo;
-	print_state()
+	print_state(philo, EATING);
 }
 
 void	thinking(t_philo *philo)
 {
-	print_state(philo->index, THINKING);
+	print_state(philo, THINKING);
 	
 	// x is thinking
 	// x has taken fork
@@ -92,9 +94,10 @@ int main(int argc, char **argv)
 	error_args();
 	i = 0;
 	init_program(&table, argv); // TO DO
-	printf("Time from the start: %ld\n", get_time(&table));
+	printf("table start %zu\n", table.start);
+	printf("Time from the start: %ld\n", get_time(&table.start));
 	usleep(500000);
-	printf("Time from the start: %ld\n", get_time(&table));
+	printf("Time from the start: %ld\n", get_time(&table.start));
 	while (i < table.nbr_of_philos)
 	{
 		if (pthread_join(table.philos[i].philo, NULL) != 0)

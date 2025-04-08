@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:07:39 by tbruha            #+#    #+#             */
-/*   Updated: 2025/04/02 12:55:05 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/04/08 17:27:19 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	init_philos(t_table *table)
 	
 	i = 0;
 	table->philos = malloc(sizeof(t_philo) * table->nbr_of_philos);
+
 	while (i < table->nbr_of_philos)
 	{
 		if (pthread_create(&table->philos[i].philo, NULL, &routine, &table->philos[i]) != 0)
@@ -27,10 +28,9 @@ void	init_philos(t_table *table)
 		table->philos[i].time_to_die = table->time_to_die;
 		table->philos[i].time_to_eat = table->time_to_eat;
 		table->philos[i].time_to_sleep = table->time_to_sleep;
-			// bool			fork_left; // own, 0 = on the table, 1 = in hand
-			// bool			fork_right; // borrowed, ditto
-			// pthread_mutex_t	mutex_fork_left;
-			// pthread_mutex_t	mutex_fork_right;
+		table->philos[i].start = table->start;
+		table->philos[i].mutex_fork_left = table->fork_mutex[i];
+		table->philos[i].mutex_fork_right = table->fork_mutex[(i + 1) % table->nbr_of_philos];
 		table->philos[i].times_eaten = 0;
 		i++;
 	}
@@ -50,8 +50,7 @@ void	init_program(t_table *table, char **argv)
 		table->nbr_to_eat = ft_atoi(argv[5]);
 	else
 		table->nbr_to_eat = 0;
-	// pthread_mutex_t	mutex; // just coz
-	
+	table->fork_mutex = malloc(sizeof(pthread_mutex_t) * table->nbr_of_philos);
 	table->bon_appetit = false;
 	init_philos(table);
 	usleep(100);
