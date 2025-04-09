@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:07:39 by tbruha            #+#    #+#             */
-/*   Updated: 2025/04/09 17:21:01 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/04/09 19:34:39 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ table->nbr_to_eat = ft_atoi(argv[5]);
 else
 table->nbr_to_eat = 0;
 table->fork_mutex = malloc(sizeof(pthread_mutex_t) * table->nbr_of_philos);
-pthread_mutex_init(&fork_mutex, NULL); // FIX THIS
+pthread_mutex_init(table->fork_mutex, NULL);
 table->bon_appetit = false;
 init_philos(table);
 }

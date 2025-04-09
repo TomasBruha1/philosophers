@@ -6,27 +6,24 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:11:11 by tbruha            #+#    #+#             */
-/*   Updated: 2025/04/09 16:58:48 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/04/09 20:21:17 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// DO NOW NOW NOW NOW: Assign mutexes....
-// DO NOW NOW NOW: Forks are the mutexes, same array as philos. &fork[i]
+// DO NOW: Assign mutexes....
 // DO Somewhere now here whatever: Where to INIT Forks?
 
 // add start time to each philo as well?
-// what is meal_lock for?
 // How to start the simulation at the same time -> bon_appetit how? NOT NOW
+// what is meal_lock for? // lock when checking the last meal eaten
 // Own sleep function.
 // Check valid input.
 // color code your philo messages
 // Don't forget to join threads at the end..
-// mutexes to lock forks
 // create a philo routine.
 // create death check
 // If I don't use size_t in atoi it will sort out bad input. TO DO.
 // How to handle errors? Fts to FREE everything and exit. (no EXIT though)
-// How to differentiate forks, with numbers? I think that left/right won't work.
 // When does it start, once I do pthread_create it starts right away? Do I want that?
 // Check allowed functions -> no EXIT.
 // Make sure you pass 20 450/500 200 200
@@ -42,25 +39,29 @@
 void	print_state(t_philo *philo, t_state state)
 {
 	if (state == 0)
-		printf("%zums -> %d is thinking.\n", get_time(&philo->start), philo->index);
+	printf("%zu ms -> %d is thinking.\n", get_time(&philo->start), philo->index);
 	else if (state == 1)
-		printf("%zu - %d is eating.\n", get_time(&philo->start), philo->index);
+	printf("%zu ms -> %d is eating.\n", get_time(&philo->start), philo->index);
 	else if (state == 2)
-		printf("%zu - %d is sleeping.\n", get_time(&philo->start), philo->index);
+	printf("%zu ms -> %d is sleeping.\n", get_time(&philo->start), philo->index);
 	else if (state == 3)
-		printf("%zu - %d has taken a fork.\n", get_time(&philo->start), philo->index);
+	printf("%zu ms -> %d has taken a fork.\n", get_time(&philo->start), philo->index);
 	else if (state == 4)
-		printf("%zu - %d has died.\n", get_time(&philo->start), philo->index);
+	printf("%zu ms -> %d has died.\n", get_time(&philo->start), philo->index);
 }
 
 void	eating(t_philo *philo)
 {
-	(void)philo;
+	// write lock
 	print_state(philo, EATING);
+	philo->times_eaten++;
+	printf("%d has eaten %zu time(s).\n", philo->index, philo->times_eaten);
+	// eating counter goes up
 }
 
 void	thinking(t_philo *philo)
 {
+	// write lock
 	print_state(philo, THINKING);
 	
 	// x is thinking
@@ -83,23 +84,27 @@ void	*routine(void *arg)
 	{
 		pthread_mutex_lock(&philo->fork_left_mutex);
 		{
+			print_state(philo, FORK);
 			pthread_mutex_lock(&philo->fork_right_mutex);
 			// LOT OF CODE HERE //
+			print_state(philo, FORK);
 			pthread_mutex_unlock(&philo->fork_right_mutex);
 		}
 		pthread_mutex_unlock(&philo->fork_left_mutex);
 	}
 	else
 	{
+		print_state(philo, FORK);
 		pthread_mutex_lock(&philo->fork_right_mutex);
 		{
+			print_state(philo, FORK);
 			pthread_mutex_lock(&philo->fork_left_mutex);
 			// LOT OF CODE HERE //
 			pthread_mutex_unlock(&philo->fork_left_mutex);
 		}
 		pthread_mutex_unlock(&philo->fork_right_mutex);
 	}
-		
+	eating(philo);	
 	return (NULL);
 }
 
@@ -115,6 +120,7 @@ int main(int argc, char **argv)
 	printf("Time from the start: %ld\n", get_time(&table.start));
 	usleep(500000);
 	printf("Time from the start: %ld\n", get_time(&table.start));
+	pthread_mutex_destroy(table.fork_mutex);
 	while (i < table.nbr_of_philos)
 	{
 		if (pthread_join(table.philos[i].philo, NULL) != 0)
@@ -142,3 +148,6 @@ int main(int argc, char **argv)
 // How to deal with 5th arg being there and not. NULL / zero what?? // DONE
 // Fix the UNIX Epoch time. // DONE
 // X is thinking message. // DONE
+// Forks are the mutexes, same array as philos. &fork[i] // DONE
+// mutexes to lock forks // DONE
+// How to differentiate forks, with numbers? I think that left/right won't work. // DONE
