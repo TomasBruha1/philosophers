@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 15:14:43 by tbruha            #+#    #+#             */
-/*   Updated: 2025/04/08 17:26:07 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/04/09 16:08:33 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ long int	get_time(void *arg)
 	start = *(size_t *)arg;
 	gettimeofday(&current, NULL);
 	time = (current.tv_sec * 1000 + current.tv_usec / 1000) - start;
-	printf("%zu\n", time);
-	
 	return (time);
 }
 

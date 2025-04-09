@@ -6,14 +6,13 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:11:11 by tbruha            #+#    #+#             */
-/*   Updated: 2025/04/08 17:28:49 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/04/09 16:58:48 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // DO NOW NOW NOW NOW: Assign mutexes....
 // DO NOW NOW NOW: Forks are the mutexes, same array as philos. &fork[i]
 // DO Somewhere now here whatever: Where to INIT Forks?
-// DO NOW: X is thinking message.
 
 // add start time to each philo as well?
 // what is meal_lock for?
@@ -42,19 +41,16 @@
 
 void	print_state(t_philo *philo, t_state state)
 {
-	
-	// add time to the message.
-	
 	if (state == 0)
-	printf("%zu - %d is thinking.\n", get_time(&philo->start), philo->index);
+		printf("%zums -> %d is thinking.\n", get_time(&philo->start), philo->index);
 	else if (state == 1)
-	printf("%zu - %d is eating.\n", get_time(&philo->start), philo->index);
+		printf("%zu - %d is eating.\n", get_time(&philo->start), philo->index);
 	else if (state == 2)
-	printf("%zu - %d is sleeping.\n", get_time(&philo->start), philo->index);
+		printf("%zu - %d is sleeping.\n", get_time(&philo->start), philo->index);
 	else if (state == 3)
-	printf("%zu - %d has taken a fork.\n", get_time(&philo->start), philo->index);
+		printf("%zu - %d has taken a fork.\n", get_time(&philo->start), philo->index);
 	else if (state == 4)
-	printf("%zu - %d has died.\n", get_time(&philo->start), philo->index);
+		printf("%zu - %d has died.\n", get_time(&philo->start), philo->index);
 }
 
 void	eating(t_philo *philo)
@@ -69,7 +65,7 @@ void	thinking(t_philo *philo)
 	
 	// x is thinking
 	// x has taken fork
-	// x has taken the other fork
+	// x has taken fork
 	// exit and go to eating
 }
 
@@ -81,7 +77,29 @@ void	*routine(void *arg)
 	thinking(philo);
 	// ft think -> odd philo first left fork // even philo right fork
 	// ft eat -> ft sleep
-	// 
+	
+	// test case for mutexes
+	if (philo->index % 2 == 0)
+	{
+		pthread_mutex_lock(&philo->fork_left_mutex);
+		{
+			pthread_mutex_lock(&philo->fork_right_mutex);
+			// LOT OF CODE HERE //
+			pthread_mutex_unlock(&philo->fork_right_mutex);
+		}
+		pthread_mutex_unlock(&philo->fork_left_mutex);
+	}
+	else
+	{
+		pthread_mutex_lock(&philo->fork_right_mutex);
+		{
+			pthread_mutex_lock(&philo->fork_left_mutex);
+			// LOT OF CODE HERE //
+			pthread_mutex_unlock(&philo->fork_left_mutex);
+		}
+		pthread_mutex_unlock(&philo->fork_right_mutex);
+	}
+		
 	return (NULL);
 }
 
@@ -94,7 +112,6 @@ int main(int argc, char **argv)
 	error_args();
 	i = 0;
 	init_program(&table, argv); // TO DO
-	printf("table start %zu\n", table.start);
 	printf("Time from the start: %ld\n", get_time(&table.start));
 	usleep(500000);
 	printf("Time from the start: %ld\n", get_time(&table.start));
@@ -123,3 +140,5 @@ int main(int argc, char **argv)
 // write atoi // DONE
 // Init ft for struct and philos. How to store multiple philos -> array. // DONE
 // How to deal with 5th arg being there and not. NULL / zero what?? // DONE
+// Fix the UNIX Epoch time. // DONE
+// X is thinking message. // DONE
