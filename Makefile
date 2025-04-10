@@ -6,7 +6,7 @@
 #    By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/15 16:15:26 by tbruha            #+#    #+#              #
-#    Updated: 2025/03/27 13:12:26 by tbruha           ###   ########.fr        #
+#    Updated: 2025/04/10 15:12:38 by tbruha           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,17 +25,18 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@$(CC) $(CFLAGS) $(OBJ) $(HEADERS) -o $(NAME)
+	@echo "Pasta is ready!"
 
 %.o: %.c
 	@$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:
 	@$(RM) $(OBJ)
-	@echo "philo is clean"
+	@echo "Philos are clean."
 
 fclean:	clean
 	@$(RM) $(NAME)
-	@echo "... and super clean"
+	@echo "...and now super clean!"
 
 re:	fclean all
 

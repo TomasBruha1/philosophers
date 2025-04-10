@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:08:33 by tbruha            #+#    #+#             */
-/*   Updated: 2025/04/10 13:58:30 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/04/10 16:37:52 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ typedef struct s_philo
 	size_t			time_to_sleep;
 	size_t			last_meal_ms; // if current - last > time_to_die == DEAD. Check by waiter.
 	size_t			start;
-	pthread_mutex_t	fork_left_mutex;
-	pthread_mutex_t	fork_right_mutex;
+	pthread_mutex_t	*fork_left_mutex;
+	pthread_mutex_t	*fork_right_mutex;
 	pthread_mutex_t	*write_mutex;
 	pthread_mutex_t *meal_mutex;
 	size_t			times_eaten;
@@ -80,6 +80,7 @@ void		error_args();
 long int	get_time(void *arg);
 size_t		ft_atoi(char *str);
 int			check_args(char **argv);
+int			ft_usleep(size_t usec);
 
 // philosophers.c
 void		*routine(void *arg);

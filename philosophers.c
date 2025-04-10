@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:11:11 by tbruha            #+#    #+#             */
-/*   Updated: 2025/04/10 14:03:11 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/04/10 16:56:47 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	eating(t_philo *philo)
 	// write lock
 	print_state(philo, EATING);
 	philo->times_eaten++;
-	printf("%d has eaten %zu time(s).\n", philo->index, philo->times_eaten);
+//	printf("%d has eaten %zu time(s).\n", philo->index, philo->times_eaten);
 	// eating counter goes up
 }
 
@@ -81,32 +81,33 @@ void	*routine(void *arg)
 	// ft think -> odd philo first left fork // even philo right fork
 	// ft eat -> ft sleep
 	
-	// test case for mutexes
-	if (philo->index % 2 == 0)
-	{
-		pthread_mutex_lock(&philo->fork_left_mutex);
+		if (philo->index % 2 == 0)
+		{
+			ft_usleep(1000);
+			pthread_mutex_lock(philo->fork_left_mutex);
+			{
+				print_state(philo, FORK);
+				pthread_mutex_lock(philo->fork_right_mutex);
+				// LOT OF CODE HERE //
+				print_state(philo, FORK);
+				pthread_mutex_unlock(philo->fork_right_mutex);
+			}
+			pthread_mutex_unlock(philo->fork_left_mutex);
+		}
+		else
 		{
 			print_state(philo, FORK);
-			pthread_mutex_lock(&philo->fork_right_mutex);
-			// LOT OF CODE HERE //
-			print_state(philo, FORK);
-			pthread_mutex_unlock(&philo->fork_right_mutex);
+			pthread_mutex_lock(philo->fork_right_mutex);
+			{
+				print_state(philo, FORK);
+				pthread_mutex_lock(philo->fork_left_mutex);
+				// LOT OF CODE HERE //
+				pthread_mutex_unlock(philo->fork_left_mutex);
+			}
+			pthread_mutex_unlock(philo->fork_right_mutex);
 		}
-		pthread_mutex_unlock(&philo->fork_left_mutex);
-	}
-	else
-	{
-		print_state(philo, FORK);
-		pthread_mutex_lock(&philo->fork_right_mutex);
-		{
-			print_state(philo, FORK);
-			pthread_mutex_lock(&philo->fork_left_mutex);
-			// LOT OF CODE HERE //
-			pthread_mutex_unlock(&philo->fork_left_mutex);
-		}
-		pthread_mutex_unlock(&philo->fork_right_mutex);
-	}
-	eating(philo);	
+		eating(philo);	
+	
 	return (NULL);
 }
 
