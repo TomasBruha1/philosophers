@@ -6,18 +6,17 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:11:11 by tbruha            #+#    #+#             */
-/*   Updated: 2025/04/09 20:21:17 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/04/10 14:03:11 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// DO NOW: Assign mutexes....
-// DO Somewhere now here whatever: Where to INIT Forks?
+// DO NOW: Own sleep function. WHY? Because regular usleep doesn't wake up quick enough.
+// Check valid input.
+
 
 // add start time to each philo as well?
 // How to start the simulation at the same time -> bon_appetit how? NOT NOW
 // what is meal_lock for? // lock when checking the last meal eaten
-// Own sleep function.
-// Check valid input.
 // color code your philo messages
 // Don't forget to join threads at the end..
 // create a philo routine.
@@ -27,10 +26,11 @@
 // When does it start, once I do pthread_create it starts right away? Do I want that?
 // Check allowed functions -> no EXIT.
 // Make sure you pass 20 450/500 200 200
+// Check on pthread_mutex_destroy.
 
 
 // notes to research:
-// Learn functions: "gettimeofday", "pthread_create", "pthread_detach"
+// Learn functions: "pthread_detach", makefile flag "thread sanitizer"
 // read up on pipex on gitbook and try to understand it.
 // Philosophy -> from Greek, philosophia, literally "love of wisdom".
 
@@ -38,6 +38,7 @@
 
 void	print_state(t_philo *philo, t_state state)
 {
+	pthread_mutex_lock(philo->write_mutex);
 	if (state == 0)
 	printf("%zu ms -> %d is thinking.\n", get_time(&philo->start), philo->index);
 	else if (state == 1)
@@ -48,6 +49,7 @@ void	print_state(t_philo *philo, t_state state)
 	printf("%zu ms -> %d has taken a fork.\n", get_time(&philo->start), philo->index);
 	else if (state == 4)
 	printf("%zu ms -> %d has died.\n", get_time(&philo->start), philo->index);
+	pthread_mutex_unlock(philo->write_mutex);
 }
 
 void	eating(t_philo *philo)
@@ -121,6 +123,7 @@ int main(int argc, char **argv)
 	usleep(500000);
 	printf("Time from the start: %ld\n", get_time(&table.start));
 	pthread_mutex_destroy(table.fork_mutex);
+	pthread_mutex_destroy(&table.write_mutex);
 	while (i < table.nbr_of_philos)
 	{
 		if (pthread_join(table.philos[i].philo, NULL) != 0)
@@ -151,3 +154,5 @@ int main(int argc, char **argv)
 // Forks are the mutexes, same array as philos. &fork[i] // DONE
 // mutexes to lock forks // DONE
 // How to differentiate forks, with numbers? I think that left/right won't work. // DONE
+// DO Somewhere now here whatever: Where to INIT Forks? // DONE
+// Assign write_mutex // DONE

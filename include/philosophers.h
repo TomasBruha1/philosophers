@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:08:33 by tbruha            #+#    #+#             */
-/*   Updated: 2025/04/09 20:22:13 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/04/10 13:58:30 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ typedef struct s_philo
 	size_t			start;
 	pthread_mutex_t	fork_left_mutex;
 	pthread_mutex_t	fork_right_mutex;
+	pthread_mutex_t	*write_mutex;
+	pthread_mutex_t *meal_mutex;
 	size_t			times_eaten;
 }					t_philo;
 
@@ -60,8 +62,8 @@ typedef struct s_table
 	bool			bon_appetit;
 	pthread_mutex_t	*fork_mutex;
 	pthread_t		waiter; // monitor thread -> checking if philos are dead and if they ate enough.
-	pthread_mutex_t	meal_lock; // not sure why. to check last meal??
-	pthread_mutex_t	write_lock;
+	pthread_mutex_t	meal_mutex; // not sure why. to check last meal??
+	pthread_mutex_t	write_mutex;
 	size_t			start;
 	int     		nbr_to_eat; // array?
 	bool			dead_flag;

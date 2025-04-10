@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 15:14:43 by tbruha            #+#    #+#             */
-/*   Updated: 2025/04/09 16:08:33 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/04/10 14:05:52 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,10 @@ size_t	ft_atoi(char *str)
 		i++;
 	}
 	return (result * sign);
+}
+
+int	ft_usleep(size_t time)
+{
+	(void)time;
+	return (0);
 }
