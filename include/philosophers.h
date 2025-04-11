@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:08:33 by tbruha            #+#    #+#             */
-/*   Updated: 2025/04/10 16:37:52 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/04/11 17:48:54 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_philo
 	pthread_mutex_t	*write_mutex;
 	pthread_mutex_t *meal_mutex;
 	size_t			times_eaten;
+	bool			dead;
 }					t_philo;
 
 typedef struct s_table
@@ -66,7 +67,6 @@ typedef struct s_table
 	pthread_mutex_t	write_mutex;
 	size_t			start;
 	int     		nbr_to_eat; // array?
-	bool			dead_flag;
 }					t_table;
 
 // FUNCTIONS
@@ -80,7 +80,7 @@ void		error_args();
 long int	get_time(void *arg);
 size_t		ft_atoi(char *str);
 int			check_args(char **argv);
-int			ft_usleep(size_t usec);
+int			ft_usleep(size_t milisec);
 
 // philosophers.c
 void		*routine(void *arg);
