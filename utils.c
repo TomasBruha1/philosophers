@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 15:14:43 by tbruha            #+#    #+#             */
-/*   Updated: 2025/04/11 17:34:38 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/04/17 16:51:40 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ long int	get_time(void *arg)
 	return (time);
 }
 
-// Own implementation of ft usleep. This one wakes faster.
-int	ft_usleep(size_t milisec)
+// Own implementation of ft usleep. This one wakes faster and is in miliseconds.
+int	ft_milisleep(size_t milisec)
 {
 	size_t			time_slept;
 	struct timeval	start_tv;

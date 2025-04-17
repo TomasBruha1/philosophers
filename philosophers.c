@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:11:11 by tbruha            #+#    #+#             */
-/*   Updated: 2025/04/11 17:57:02 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/04/17 17:04:15 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,17 @@ void	print_state(t_philo *philo, t_state state)
 	pthread_mutex_unlock(philo->write_mutex);
 }
 
+void	sleeping(t_philo *philo)
+{
+	print_state(philo, SLEEPING);
+	ft_milisleep(philo->time_to_sleep);
+}
+
+// It prints that philo is sleeping and puts him to sleep and incr times_eaten.
 void	eating(t_philo *philo)
 {
 	print_state(philo, EATING);
-	ft_usleep(philo->time_to_eat);
+	ft_milisleep(philo->time_to_eat);
 	philo->times_eaten++;
 }
 
@@ -75,7 +82,8 @@ void	*routine(void *arg)
 	thinking(philo);
 	// ft think -> odd philo first left fork // even philo right fork
 	// ft eat -> ft sleep
-	
+	if (philo->index % 2 == 0)
+		ft_milisleep(1);
 	if (philo->index % 2 == 0) // if/else here will be separate functions
 	{
 		pthread_mutex_lock(philo->fork_left_mutex);
@@ -87,6 +95,7 @@ void	*routine(void *arg)
 			pthread_mutex_unlock(philo->fork_right_mutex);
 		}
 		pthread_mutex_unlock(philo->fork_left_mutex);
+		sleeping(philo);
 	}
 	else
 	{
@@ -99,6 +108,7 @@ void	*routine(void *arg)
 			pthread_mutex_unlock(philo->fork_left_mutex);
 		}
 		pthread_mutex_unlock(philo->fork_right_mutex);
+		sleeping(philo);
 	}
 	return (NULL);
 	}
@@ -113,13 +123,15 @@ void	*routine(void *arg)
 		i = 0;
 		init_program(&table, argv); // TO DO
 		usleep(500000); // THIS is crucial so it doesn't terminate. How to pthread_join works??
-		pthread_mutex_destroy(table.fork_mutex);
-		pthread_mutex_destroy(&table.write_mutex);
+		ft_milisleep(5000);
 		while (i < table.nbr_of_philos)
 		{
 			if (pthread_join(table.philos[i].philo, NULL) != 0)
 			return (2);
+			i++;
 		}
+		pthread_mutex_destroy(table.fork_mutex);
+		pthread_mutex_destroy(&table.write_mutex);
 		return (EXIT_SUCCESS);
 	}
 	

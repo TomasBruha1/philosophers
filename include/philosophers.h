@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:08:33 by tbruha            #+#    #+#             */
-/*   Updated: 2025/04/11 17:48:54 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/04/17 16:51:56 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void		error_args();
 long int	get_time(void *arg);
 size_t		ft_atoi(char *str);
 int			check_args(char **argv);
-int			ft_usleep(size_t milisec);
+int			ft_milisleep(size_t milisec);
 
 // philosophers.c
 void		*routine(void *arg);
