@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:11:11 by tbruha            #+#    #+#             */
-/*   Updated: 2025/04/17 17:04:15 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/04/22 15:59:32 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,46 +74,55 @@ void	thinking(t_philo *philo)
 	print_state(philo, THINKING);
 }
 
+// odd_routine
+
+// even_routine
+
 // Routine includes philos eating, sleeping and thinking.
 void	*routine(void *arg)
 {
 	t_philo	*philo = (t_philo *)arg;
 	// wait while bon_appetit == false; set true after everything is ready.
 	thinking(philo);
-	// ft think -> odd philo first left fork // even philo right fork
-	// ft eat -> ft sleep
 	if (philo->index % 2 == 0)
 		ft_milisleep(1);
-	if (philo->index % 2 == 0) // if/else here will be separate functions
+	while (1)
 	{
-		pthread_mutex_lock(philo->fork_left_mutex);
+		if (philo->index % 2 == 0) // if/else here will be separate functions
 		{
-			print_state(philo, FORK);
-			pthread_mutex_lock(philo->fork_right_mutex);
-			print_state(philo, FORK);
-			eating(philo);
-			pthread_mutex_unlock(philo->fork_right_mutex);
-		}
-		pthread_mutex_unlock(philo->fork_left_mutex);
-		sleeping(philo);
-	}
-	else
-	{
-		pthread_mutex_lock(philo->fork_right_mutex);
-		{
-			print_state(philo, FORK);
 			pthread_mutex_lock(philo->fork_left_mutex);
-			print_state(philo, FORK);
-			eating(philo);
+			{
+				print_state(philo, FORK);
+				pthread_mutex_lock(philo->fork_right_mutex);
+				{
+					print_state(philo, FORK);
+					eating(philo);
+				}
+				pthread_mutex_unlock(philo->fork_right_mutex);
+			}
 			pthread_mutex_unlock(philo->fork_left_mutex);
+			sleeping(philo);
 		}
-		pthread_mutex_unlock(philo->fork_right_mutex);
-		sleeping(philo);
+		else
+		{
+			pthread_mutex_lock(philo->fork_right_mutex);
+			{
+				print_state(philo, FORK);
+				pthread_mutex_lock(philo->fork_left_mutex);
+				{
+					print_state(philo, FORK);
+					eating(philo);
+				}
+				pthread_mutex_unlock(philo->fork_left_mutex);
+			}
+			pthread_mutex_unlock(philo->fork_right_mutex);
+			sleeping(philo);
+		}
 	}
 	return (NULL);
-	}
-	
-	int main(int argc, char **argv)
+}
+
+int main(int argc, char **argv)
 	{
 		t_table		table;
 		size_t			i;
@@ -160,3 +169,4 @@ void	*routine(void *arg)
 	// DO Somewhere now here whatever: Where to INIT Forks? // DONE
 	// Assign write_mutex // DONE
 	// Own ft_usleep function. // DONE
+	
