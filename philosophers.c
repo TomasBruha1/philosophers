@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:11:11 by tbruha            #+#    #+#             */
-/*   Updated: 2025/04/22 16:07:16 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/04/22 20:51:43 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 // Create waiter routine. Check if death and if they ate enough times.
 // Check valid input.
 
+// If philo dies during meal or sleep, does he finished meal/sleep and die...
+// ... or does he needs to die right away.
+
+// What if waiter write's the message and the program finished after he is awake/dead
 // add start time to each philo as well?
 // How to start the simulation at the same time -> bon_appetit how? NOT NOW
 // what is meal_lock for? // lock when checking the last meal eaten
