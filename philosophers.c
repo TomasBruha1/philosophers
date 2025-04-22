@@ -6,21 +6,19 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:11:11 by tbruha            #+#    #+#             */
-/*   Updated: 2025/04/22 15:59:32 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/04/22 16:07:16 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// DO NOW: Create a philo routine.
+// DO NOW: Create death check. Check by waiter, because philo might be sleeping.
+
 // Create waiter routine. Check if death and if they ate enough times.
 // Check valid input.
-// create death check. Check by waiter, because philo might be sleeping.
-
 
 // add start time to each philo as well?
 // How to start the simulation at the same time -> bon_appetit how? NOT NOW
 // what is meal_lock for? // lock when checking the last meal eaten
 // color code your philo messages
-// Don't forget to join threads at the end..
 // If I don't use size_t in atoi it will sort out bad input. TO DO.
 // How to handle errors? Fts to FREE everything and exit. (no EXIT though)
 // When does it start, once I do pthread_create it starts right away? Do I want that?
@@ -85,7 +83,7 @@ void	*routine(void *arg)
 	// wait while bon_appetit == false; set true after everything is ready.
 	thinking(philo);
 	if (philo->index % 2 == 0)
-		ft_milisleep(1);
+	ft_milisleep(1);
 	while (1)
 	{
 		if (philo->index % 2 == 0) // if/else here will be separate functions
@@ -123,50 +121,51 @@ void	*routine(void *arg)
 }
 
 int main(int argc, char **argv)
+{
+	t_table		table;
+	size_t			i;
+	
+	if (argc < 5 || argc > 6)
+	error_args();
+	i = 0;
+	init_program(&table, argv); // TO DO
+	usleep(500000); // THIS is crucial so it doesn't terminate. How to pthread_join works??
+	ft_milisleep(5000);
+	while (i < table.nbr_of_philos)
 	{
-		t_table		table;
-		size_t			i;
-		
-		if (argc < 5 || argc > 6)
-		error_args();
-		i = 0;
-		init_program(&table, argv); // TO DO
-		usleep(500000); // THIS is crucial so it doesn't terminate. How to pthread_join works??
-		ft_milisleep(5000);
-		while (i < table.nbr_of_philos)
-		{
-			if (pthread_join(table.philos[i].philo, NULL) != 0)
-			return (2);
-			i++;
-		}
-		pthread_mutex_destroy(table.fork_mutex);
-		pthread_mutex_destroy(&table.write_mutex);
-		return (EXIT_SUCCESS);
+		if (pthread_join(table.philos[i].philo, NULL) != 0)
+		return (2);
+		i++;
 	}
-	
-	// ----------------------------------------------------------------------------
-	
-	// gcc -pthread -Wall -Wextra -Werror // DONE
-	// RTFM -> kidding -> read the subject and go from there. // DONE
-	// Google and watch some videos to get better broad understanding. // DONE
-	// Test the "deposit 200 & 300 money test to see how it works." // DONE
-	// Test gettimeofday function. Settimeofday to 0? PRINT IT // DONE
-	// What are the test cases and input that I need to run successfully? // DONE
-	// 5 800 200 200 (7) -> rest of the cases by skvackov // DONE
-	// What is threading? What is mutex? // DONE
-	// ditto-> "pthread_join", "pthread_mutex_init", "pthread_mutex_destroy" // DONE
-	// ditto-> "pthread_mutex_lock", "pthread_mutex_unlock" // DONE
-	// Make philo struct. // DONE
-	// Lot of stuff using size_t why? Why not just int?? // DONE
-	// write atoi // DONE
-	// Init ft for struct and philos. How to store multiple philos -> array. // DONE
-	// How to deal with 5th arg being there and not. NULL / zero what?? // DONE
-	// Fix the UNIX Epoch time. // DONE
-	// X is thinking message. // DONE
-	// Forks are the mutexes, same array as philos. &fork[i] // DONE
-	// mutexes to lock forks // DONE
-	// How to differentiate forks, with numbers? I think that left/right won't work. // DONE
-	// DO Somewhere now here whatever: Where to INIT Forks? // DONE
-	// Assign write_mutex // DONE
-	// Own ft_usleep function. // DONE
-	
+	pthread_mutex_destroy(table.fork_mutex);
+	pthread_mutex_destroy(&table.write_mutex);
+	return (EXIT_SUCCESS);
+}
+
+// ----------------------------------------------------------------------------
+
+// gcc -pthread -Wall -Wextra -Werror // DONE
+// RTFM -> kidding -> read the subject and go from there. // DONE
+// Google and watch some videos to get better broad understanding. // DONE
+// Test the "deposit 200 & 300 money test to see how it works." // DONE
+// Test gettimeofday function. Settimeofday to 0? PRINT IT // DONE
+// What are the test cases and input that I need to run successfully? // DONE
+// 5 800 200 200 (7) -> rest of the cases by skvackov // DONE
+// What is threading? What is mutex? // DONE
+// ditto-> "pthread_join", "pthread_mutex_init", "pthread_mutex_destroy" // DONE
+// ditto-> "pthread_mutex_lock", "pthread_mutex_unlock" // DONE
+// Make philo struct. // DONE
+// Lot of stuff using size_t why? Why not just int?? // DONE
+// write atoi // DONE
+// Init ft for struct and philos. How to store multiple philos -> array. // DONE
+// How to deal with 5th arg being there and not. NULL / zero what?? // DONE
+// Fix the UNIX Epoch time. // DONE
+// X is thinking message. // DONE
+// Forks are the mutexes, same array as philos. &fork[i] // DONE
+// mutexes to lock forks // DONE
+// How to differentiate forks, with numbers? I think that left/right won't work. // DONE
+// DO Somewhere now here whatever: Where to INIT Forks? // DONE
+// Assign write_mutex // DONE
+// Own ft_usleep function. // DONE
+// Create a philo routine. // DONE
+// Don't forget to join threads at the end.. // DONE
