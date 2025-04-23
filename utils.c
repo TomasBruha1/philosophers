@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 15:14:43 by tbruha            #+#    #+#             */
-/*   Updated: 2025/04/17 16:51:40 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/04/23 12:03:47 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ size_t	ft_atoi(char *str)
 }
 
 // This function will return time in miliseconds from the start.
-long int	get_time(void *arg)
+size_t	get_time(void *arg) // What is the arg?
 {
-	long int 		time;
+	size_t 			time;
 	struct timeval	current;
 	size_t			start;
 

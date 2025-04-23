@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:08:33 by tbruha            #+#    #+#             */
-/*   Updated: 2025/04/22 20:59:40 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/04/23 12:21:00 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct s_table
 	size_t			time_to_sleep;
 	bool			bon_appetit;
 	pthread_mutex_t	*fork_mutex;
-	pthread_t		waiter; // monitor thread -> checking if philos are dead and if they ate enough.
+	pthread_t		waiter;
 	pthread_mutex_t	meal_mutex; // not sure why. to check last meal??
 	pthread_mutex_t	write_mutex;
 	size_t			start;
@@ -74,19 +74,20 @@ typedef struct s_table
 // init.c
 void		init_philos(t_table *table);
 void		init_program(t_table *table, char **argv);
-void		init_waiter(t_table *table);
+int			init_waiter(t_table *table);
 
 // utils.c
 void		error_args();
-long int	get_time(void *arg);
+size_t		get_time(void *arg);
 size_t		ft_atoi(char *str);
 int			check_args(char **argv);
 int			ft_milisleep(size_t milisec);
 
 // utils_2.c
-void    *waiter_routine(void *arg);
+void		*waiter_routine(void *arg);
 
 // philosophers.c
 void		*routine(void *arg);
+void		print_state(t_philo *philo, t_state state);
 
 #endif

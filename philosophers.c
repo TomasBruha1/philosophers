@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:11:11 by tbruha            #+#    #+#             */
-/*   Updated: 2025/04/22 20:51:43 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/04/23 12:37:15 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 // Check allowed functions -> no EXIT.
 // Make sure you pass 20 450/500 200 200
 // Check on pthread_mutex_destroy.
+// Everybody is DEAD Dave!
 
 // BUGS:
 // Only philo have both mutaxes pointing to the same fork.
@@ -53,7 +54,7 @@ void	print_state(t_philo *philo, t_state state)
 	else if (state == 3)
 	printf("%zu ms -> %d has taken a fork.\n", get_time(&philo->start), philo->index);
 	else if (state == 4)
-	printf("%zu ms -> %d has died.\n", get_time(&philo->start), philo->index);
+	printf("%zu ms -> %d is DEAD Dave.\n", get_time(&philo->start), philo->index);
 	pthread_mutex_unlock(philo->write_mutex);
 }
 
@@ -67,6 +68,7 @@ void	sleeping(t_philo *philo)
 void	eating(t_philo *philo)
 {
 	print_state(philo, EATING);
+	philo->last_meal_ms = (size_t)get_time;
 	ft_milisleep(philo->time_to_eat);
 	philo->times_eaten++;
 }

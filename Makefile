@@ -6,7 +6,7 @@
 #    By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/15 16:15:26 by tbruha            #+#    #+#              #
-#    Updated: 2025/04/10 15:12:38 by tbruha           ###   ########.fr        #
+#    Updated: 2025/04/23 11:11:18 by tbruha           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ RM			= rm -rf # force recursive remove
 CC			= cc
 MAKEFLAGS 	= --no-print-directory # silences "entering, leaving dir..."
 
-SRC		= 	philosophers.c init.c utils.c #src/push_swap.c
+SRC		= 	philosophers.c init.c utils.c utils_2.c #src/push_swap.c
 
 OBJ		:=	$(SRC:%.c=%.o)
 
