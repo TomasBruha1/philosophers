@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:11:11 by tbruha            #+#    #+#             */
-/*   Updated: 2025/04/23 14:26:01 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/04/23 16:16:17 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@
 // How to handle errors? Fts to FREE everything and exit. (no EXIT though)
 // When does it start, once I do pthread_create it starts right away? Do I want that?
 // Check allowed functions -> no EXIT.
-// Make sure you pass 20 450/500 200 200
+// 20 450/500 200 200 // 1 800 200 200 // 5 800 200 200 // 5 800 200 200 7
+// 4 410 200 200 // 4 310 200 100
 // Check on pthread_mutex_destroy.
-// What is thread sanitizer?
 // Everybody is DEAD Dave!
 
 // BUGS:
