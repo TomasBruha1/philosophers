@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:11:11 by tbruha            #+#    #+#             */
-/*   Updated: 2025/04/23 12:37:15 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/04/23 14:26:01 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 // Check allowed functions -> no EXIT.
 // Make sure you pass 20 450/500 200 200
 // Check on pthread_mutex_destroy.
+// What is thread sanitizer?
 // Everybody is DEAD Dave!
 
 // BUGS:
@@ -46,15 +47,15 @@ void	print_state(t_philo *philo, t_state state)
 {
 	pthread_mutex_lock(philo->write_mutex);
 	if (state == 0)
-	printf("%zu ms -> %d is thinking.\n", get_time(&philo->start), philo->index);
+	printf("%5zu ms -> %d is thinking.\n", get_time(&philo->start), philo->index);
 	else if (state == 1)
-	printf("%zu ms -> %d is eating.\n", get_time(&philo->start), philo->index);
+	printf("%5zu ms -> %d is eating.\n", get_time(&philo->start), philo->index);
 	else if (state == 2)
-	printf("%zu ms -> %d is sleeping.\n", get_time(&philo->start), philo->index);
+	printf("%5zu ms -> %d is sleeping.\n", get_time(&philo->start), philo->index);
 	else if (state == 3)
-	printf("%zu ms -> %d has taken a fork.\n", get_time(&philo->start), philo->index);
+	printf("%5zu ms -> %d has taken a fork.\n", get_time(&philo->start), philo->index);
 	else if (state == 4)
-	printf("%zu ms -> %d is DEAD Dave.\n", get_time(&philo->start), philo->index);
+	printf("%5zu ms -> %d is DEAD Dave.\n", get_time(&philo->start), philo->index);
 	pthread_mutex_unlock(philo->write_mutex);
 }
 
@@ -68,7 +69,7 @@ void	sleeping(t_philo *philo)
 void	eating(t_philo *philo)
 {
 	print_state(philo, EATING);
-	philo->last_meal_ms = (size_t)get_time;
+	philo->last_meal_ms = get_time(&philo->start);
 	ft_milisleep(philo->time_to_eat);
 	philo->times_eaten++;
 }
