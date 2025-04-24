@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:11:11 by tbruha            #+#    #+#             */
-/*   Updated: 2025/04/23 16:16:17 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/04/24 16:19:50 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,8 @@
 // BUGS:
 // Only philo have both mutaxes pointing to the same fork.
 
-
 // notes to research:
-// Learn functions: "pthread_detach", makefile flag "thread sanitizer"
+// Learn functions: "pthread_detach"
 // read up on pipex on gitbook and try to understand it.
 // Philosophy -> from Greek, philosophia, literally "love of wisdom".
 
@@ -55,7 +54,7 @@ void	print_state(t_philo *philo, t_state state)
 	else if (state == 3)
 	printf("%5zu ms -> %d has taken a fork.\n", get_time(&philo->start), philo->index);
 	else if (state == 4)
-	printf("%5zu ms -> %d is DEAD Dave.\n", get_time(&philo->start), philo->index);
+	printf("%5zu ms -> %d is DEAD.\n", get_time(&philo->start), philo->index);
 	pthread_mutex_unlock(philo->write_mutex);
 }
 
@@ -89,12 +88,12 @@ void	*routine(void *arg)
 	t_philo	*philo = (t_philo *)arg;
 	// wait while bon_appetit == false; set true after everything is ready.
 	thinking(philo);
-	if (philo->index % 2 == 0)
-	ft_milisleep(1);
+//	if (philo->index % 2 == 0)
 	while (1)
 	{
 		if (philo->index % 2 == 0) // if/else here will be separate functions
 		{
+			ft_milisleep(1);
 			pthread_mutex_lock(philo->fork_left_mutex);
 			{
 				print_state(philo, FORK);
@@ -135,9 +134,7 @@ int main(int argc, char **argv)
 	if (argc < 5 || argc > 6)
 	error_args();
 	i = 0;
-	init_program(&table, argv); // TO DO
-	usleep(500000); // THIS is crucial so it doesn't terminate. How to pthread_join works??
-	ft_milisleep(5000);
+	init_program(&table, argv);
 	while (i < table.nbr_of_philos)
 	{
 		if (pthread_join(table.philos[i].philo, NULL) != 0)
