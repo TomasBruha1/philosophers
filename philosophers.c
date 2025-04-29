@@ -6,23 +6,23 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:11:11 by tbruha            #+#    #+#             */
-/*   Updated: 2025/04/24 16:19:50 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/04/29 21:10:37 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// DO NOW: Create death check. Check by waiter, because philo might be sleeping.
+// DO NOW: Create and make to work the fifth argument.
 
-// Create waiter routine. Check if death and if they ate enough times.
 // Check valid input.
-
+// What if two philos die at the same time?
+// Free everything if all of them ate enough.
+// How to handle freeing upon "ctrl + c" if no philo should die?
 // If philo dies during meal or sleep, does he finished meal/sleep and die...
 // ... or does he needs to die right away.
 
 // What if waiter write's the message and the program finished after he is awake/dead
 // add start time to each philo as well?
 // How to start the simulation at the same time -> bon_appetit how? NOT NOW
-// what is meal_lock for? // lock when checking the last meal eaten
-// color code your philo messages
+// what is meal_lock for? // lock when checking the last meal eaten meals_eaten++ maybe?
 // If I don't use size_t in atoi it will sort out bad input. TO DO.
 // How to handle errors? Fts to FREE everything and exit. (no EXIT though)
 // When does it start, once I do pthread_create it starts right away? Do I want that?
@@ -54,7 +54,7 @@ void	print_state(t_philo *philo, t_state state)
 	else if (state == 3)
 	printf("%5zu ms -> %d has taken a fork.\n", get_time(&philo->start), philo->index);
 	else if (state == 4)
-	printf("%5zu ms -> %d is DEAD.\n", get_time(&philo->start), philo->index);
+	printf("%5zu ms -> %d is "RED"DEAD"RESET".\n", get_time(&philo->start), philo->index);
 	pthread_mutex_unlock(philo->write_mutex);
 }
 
@@ -78,51 +78,60 @@ void	thinking(t_philo *philo)
 	print_state(philo, THINKING);
 }
 
-// odd_routine
+// routine for odd index philos
+void	odd_routine(t_philo *philo)
+{
+	while (philo->dead == false)
+	{
+		thinking(philo);
+		pthread_mutex_lock(philo->fork_right_mutex);
+		{
+			print_state(philo, FORK);
+			pthread_mutex_lock(philo->fork_left_mutex);
+			{
+				print_state(philo, FORK);
+				eating(philo);
+			}
+			pthread_mutex_unlock(philo->fork_left_mutex);
+		}
+		pthread_mutex_unlock(philo->fork_right_mutex);
+		sleeping(philo);
+	}
+}
 
-// even_routine
+// routine for even index philos
+void	even_routine(t_philo *philo)
+{
+	while (philo->dead == false)
+	{
+		thinking(philo);
+		pthread_mutex_lock(philo->fork_left_mutex);
+		{
+			print_state(philo, FORK);
+			pthread_mutex_lock(philo->fork_right_mutex);
+			{
+				print_state(philo, FORK);
+				eating(philo);
+			}
+			pthread_mutex_unlock(philo->fork_right_mutex);
+		}
+		pthread_mutex_unlock(philo->fork_left_mutex);
+		sleeping(philo);
+	}	
+}
 
 // Routine includes philos eating, sleeping and thinking.
 void	*routine(void *arg)
 {
 	t_philo	*philo = (t_philo *)arg;
 	// wait while bon_appetit == false; set true after everything is ready.
-	thinking(philo);
-//	if (philo->index % 2 == 0)
-	while (1)
-	{
-		if (philo->index % 2 == 0) // if/else here will be separate functions
-		{
-			ft_milisleep(1);
-			pthread_mutex_lock(philo->fork_left_mutex);
-			{
-				print_state(philo, FORK);
-				pthread_mutex_lock(philo->fork_right_mutex);
-				{
-					print_state(philo, FORK);
-					eating(philo);
-				}
-				pthread_mutex_unlock(philo->fork_right_mutex);
-			}
-			pthread_mutex_unlock(philo->fork_left_mutex);
-			sleeping(philo);
-		}
-		else
-		{
-			pthread_mutex_lock(philo->fork_right_mutex);
-			{
-				print_state(philo, FORK);
-				pthread_mutex_lock(philo->fork_left_mutex);
-				{
-					print_state(philo, FORK);
-					eating(philo);
-				}
-				pthread_mutex_unlock(philo->fork_left_mutex);
-			}
-			pthread_mutex_unlock(philo->fork_right_mutex);
-			sleeping(philo);
-		}
-	}
+	
+	if (philo->index % 2 == 1)
+	ft_milisleep(1);
+	if (philo->index % 2 == 0)
+	even_routine(philo);
+	else
+	odd_routine(philo);
 	return (NULL);
 }
 
@@ -173,3 +182,6 @@ int main(int argc, char **argv)
 // Own ft_usleep function. // DONE
 // Create a philo routine. // DONE
 // Don't forget to join threads at the end.. // DONE
+// Separate odd/even routines in code. // DONE
+// Create death check by waiter, because philo might be sleeping. // DONE
+// How to change color for DEAD message. // DONE

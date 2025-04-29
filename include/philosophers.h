@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:08:33 by tbruha            #+#    #+#             */
-/*   Updated: 2025/04/24 16:31:57 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/04/29 21:02:46 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@
 # include <pthread.h>
 # include <sys/time.h>
 
+// DEFINES
+
+# define RED	"\033[31m"
+# define RESET	"\033[0m"
+
 // ENUMS
 
 typedef enum e_state
@@ -33,6 +38,8 @@ typedef enum e_state
 	FORK,
 	DEAD
 }			t_state;
+
+
 
 // STRUCTS
 
