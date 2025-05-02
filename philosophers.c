@@ -6,12 +6,13 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:11:11 by tbruha            #+#    #+#             */
-/*   Updated: 2025/04/29 21:10:37 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/05/02 12:43:29 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// DO NOW: Create and make to work the fifth argument.
+// DO NOW: Create and make to work the fifth argument...
 
+// Sim now finishes round which is wrong. How to correctly finish it once DEAD state.
 // Check valid input.
 // What if two philos die at the same time?
 // Free everything if all of them ate enough.
@@ -30,14 +31,11 @@
 // 20 450/500 200 200 // 1 800 200 200 // 5 800 200 200 // 5 800 200 200 7
 // 4 410 200 200 // 4 310 200 100
 // Check on pthread_mutex_destroy.
-// Everybody is DEAD Dave!
 
 // BUGS:
 // Only philo have both mutaxes pointing to the same fork.
 
 // notes to research:
-// Learn functions: "pthread_detach"
-// read up on pipex on gitbook and try to understand it.
 // Philosophy -> from Greek, philosophia, literally "love of wisdom".
 
 #include "include/philosophers.h"
@@ -77,7 +75,7 @@ void	thinking(t_philo *philo)
 {
 	print_state(philo, THINKING);
 }
-
+// 
 // routine for odd index philos
 void	odd_routine(t_philo *philo)
 {
