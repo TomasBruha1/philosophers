@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 15:14:43 by tbruha            #+#    #+#             */
-/*   Updated: 2025/05/02 14:55:36 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/05/02 16:40:47 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,7 @@ int	ft_milisleep(size_t milisec, bool dead)
 	gettimeofday(&start_tv, NULL);
 	start = (start_tv.tv_sec * 1000 + start_tv.tv_usec / 1000);
 	time_slept = 0;
-	// another condition >> || philo[i].dead == FALSE
-	while (time_slept < milisec && dead == false) // I I pass "philo.id" I can switch to philo.dead here
+	while (time_slept < milisec && dead == false)
 	{
 		gettimeofday(&current, NULL);
 		time_slept = ((current.tv_sec * 1000 + current.tv_usec / 1000) - start);

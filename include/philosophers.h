@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:08:33 by tbruha            #+#    #+#             */
-/*   Updated: 2025/05/02 14:54:07 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/05/02 16:59:24 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ typedef struct s_table
 	pthread_mutex_t	meal_mutex; // not sure why. to check last meal??
 	pthread_mutex_t	write_mutex;
 	size_t			start;
-	int     		nbr_to_eat; // array?
+	size_t     		nbr_to_eat; // array?
 	bool			sim;
 }					t_table;
 

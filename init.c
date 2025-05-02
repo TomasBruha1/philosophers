@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:07:39 by tbruha            #+#    #+#             */
-/*   Updated: 2025/05/02 12:54:05 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/05/02 16:59:36 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void	init_philos(t_table *table)
 		table->philos[i].start = table->start;
 		table->philos[i].fork_left_mutex = &table->fork_mutex[i];
 		table->philos[i].fork_right_mutex = &table->fork_mutex[(i + 1) % table->nbr_of_philos];
-		table->philos[i].times_eaten = 0; // if needed change to -1, good for now
+		table->philos[i].times_eaten = 0;
+		table->philos[i].last_meal_ms = 0;
 		table->philos[i].write_mutex = &table->write_mutex;
 		table->philos[i].dead = false;
 		i++;
@@ -61,7 +62,7 @@ void	init_program(t_table *table, char **argv)
 		printf("Args are OK.\n"); // both printf's can be in the check function.
 	else
 		printf("Args are NOT OK.\n");
-	usleep(100);
+	usleep(5);
 	gettimeofday(&time, NULL); // start time // possible init_time
 	table->start = time.tv_sec * 1000 + time.tv_usec / 1000; // start time
 	table->nbr_of_philos = ft_atoi(argv[1]); // send args to init_philo only?

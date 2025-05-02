@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 19:49:21 by tbruha            #+#    #+#             */
-/*   Updated: 2025/04/29 21:06:40 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/05/02 17:55:42 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ void    *waiter_routine(void *arg)
 	
 	while (table->sim == true)
 	{
-		while (i < table->nbr_of_philos) // Here can be health check ft (dead)
+		while (i < table->nbr_of_philos)
 		{
+			// Here can be health check ft (dead)
 			current = get_time(&table->start);
 			if ((current - table->philos[i].last_meal_ms) > table->philos[i].time_to_die)
 			{
@@ -35,10 +36,16 @@ void    *waiter_routine(void *arg)
 				while (i < table->nbr_of_philos)
 				{
 					table->philos[i].dead = true;
-					i++;	
+					i++;
 				}
-				// exit(EXIT_FAILURE); // EXIT IS FORBIDDEN -> break twice??
-				// if not dead check if ate enough
+			}
+			if (table->nbr_to_eat > 0) // eaten_enough separate ft here
+			{
+				
+				if (table->philos[i].times_eaten >= table->nbr_to_eat)
+				{
+					
+				}
 			}
 			i++;
 		}

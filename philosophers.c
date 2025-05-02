@@ -6,20 +6,16 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:11:11 by tbruha            #+#    #+#             */
-/*   Updated: 2025/05/02 15:00:35 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/05/02 17:43:38 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // DO NOW: Create and make to work the fifth argument...
 
 // Check valid input.
-// What if two philos die at the same time?
 // Free everything if all of them ate enough.
 // How to handle freeing upon "ctrl + c" if no philo should die?
-// If philo dies during meal or sleep, does he finished meal/sleep and die...
-// ... or does he needs to die right away.
 
-// What if waiter write's the message and the program finished after he is awake/dead
 // add start time to each philo as well?
 // How to start the simulation at the same time -> bon_appetit how? NOT NOW
 // what is meal_lock for? // lock when checking the last meal eaten meals_eaten++ maybe?
@@ -31,8 +27,10 @@
 // 5 800 200 200 7 // 4 410 200 200 // 4 310 200 100
 
 // BUGS:
-// Only philo have both mutaxes pointing to the same fork.
-
+// Only philo have both mutaxes pointing to the same fork. Make special case.
+// Change return to int in init_philos.
+// If someone is sleeping program will not print but run until he wakes up.
+// seg fault on first try for large group of philos (20+), why? Same var?? which one?
 // notes to research:
 // Philosophy -> from Greek, philosophia, literally "love of wisdom".
 
@@ -40,7 +38,7 @@
 
 void	print_state(t_philo *philo, t_state state)
 {
-	pthread_mutex_lock(philo->write_mutex);
+	pthread_mutex_lock(philo->write_mutex); // mutex inside if "dead"?
 	if (philo->dead == false)
 	{
 		if (state == 0)
@@ -185,3 +183,6 @@ int main(int argc, char **argv)
 // Create death check by waiter, because philo might be sleeping. // DONE
 // How to change color for DEAD message. // DONE
 // Sim now finishes round. How to correctly finish it once DEAD state. // DONE
+// What if two philos die at the same time? // DONE
+// If philo dies during meal or sleep, does he finished meal/sleep and die... // DONE
+// ... or does he needs to die right away. // DONE
