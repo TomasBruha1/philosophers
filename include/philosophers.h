@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:08:33 by tbruha            #+#    #+#             */
-/*   Updated: 2025/05/02 16:59:24 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/05/02 19:15:29 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void		error_args();
 size_t		get_time(void *arg);
 size_t		ft_atoi(char *str);
 int			check_args(char **argv);
-int			ft_milisleep(size_t milisec, bool dead);
+int			ft_milisleep(size_t milisec, t_philo *philo);
 
 // utils_2.c
 void		*waiter_routine(void *arg);

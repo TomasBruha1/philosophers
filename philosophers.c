@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:11:11 by tbruha            #+#    #+#             */
-/*   Updated: 2025/05/02 17:43:38 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/05/02 19:22:18 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@
 // BUGS:
 // Only philo have both mutaxes pointing to the same fork. Make special case.
 // Change return to int in init_philos.
-// If someone is sleeping program will not print but run until he wakes up.
 // seg fault on first try for large group of philos (20+), why? Same var?? which one?
 // notes to research:
 // Philosophy -> from Greek, philosophia, literally "love of wisdom".
@@ -58,7 +57,7 @@ void	print_state(t_philo *philo, t_state state)
 void	sleeping(t_philo *philo)
 {
 	print_state(philo, SLEEPING);
-	ft_milisleep(philo->time_to_sleep, philo->dead);
+	ft_milisleep(philo->time_to_sleep, philo);
 }
 
 // It prints that philo is sleeping and puts him to sleep and incr times_eaten.
@@ -66,7 +65,7 @@ void	eating(t_philo *philo)
 {
 	print_state(philo, EATING);
 	philo->last_meal_ms = get_time(&philo->start);
-	ft_milisleep(philo->time_to_eat, philo->dead);
+	ft_milisleep(philo->time_to_eat, philo);
 	philo->times_eaten++;
 }
 
@@ -124,7 +123,7 @@ void	*routine(void *arg)
 	// wait while bon_appetit == false; set true after everything is ready.
 	
 	if (philo->id % 2 == 1)
-	ft_milisleep(1, false);
+	ft_milisleep(1, philo);
 	if (philo->id % 2 == 0)
 	even_routine(philo);
 	else
