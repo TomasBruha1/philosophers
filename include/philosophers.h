@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:08:33 by tbruha            #+#    #+#             */
-/*   Updated: 2025/04/29 21:02:46 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/05/02 14:54:07 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,12 @@ typedef enum e_state
 	DEAD
 }			t_state;
 
-
-
 // STRUCTS
 
 typedef struct s_philo
 {
 	pthread_t		philo;
-	int     		index;
+	int     		id;
 	size_t			time_to_die;
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
@@ -89,7 +87,7 @@ void		error_args();
 size_t		get_time(void *arg);
 size_t		ft_atoi(char *str);
 int			check_args(char **argv);
-int			ft_milisleep(size_t milisec);
+int			ft_milisleep(size_t milisec, bool dead);
 
 // utils_2.c
 void		*waiter_routine(void *arg);

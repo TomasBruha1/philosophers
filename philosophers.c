@@ -6,13 +6,12 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:11:11 by tbruha            #+#    #+#             */
-/*   Updated: 2025/05/02 12:43:29 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/05/02 15:00:35 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // DO NOW: Create and make to work the fifth argument...
 
-// Sim now finishes round which is wrong. How to correctly finish it once DEAD state.
 // Check valid input.
 // What if two philos die at the same time?
 // Free everything if all of them ate enough.
@@ -28,9 +27,8 @@
 // How to handle errors? Fts to FREE everything and exit. (no EXIT though)
 // When does it start, once I do pthread_create it starts right away? Do I want that?
 // Check allowed functions -> no EXIT.
-// 20 450/500 200 200 // 1 800 200 200 // 5 800 200 200 // 5 800 200 200 7
-// 4 410 200 200 // 4 310 200 100
-// Check on pthread_mutex_destroy.
+// 20 450/500 200 200 // 1 800 200 200 (doesnt exit) // 5 800 200 200
+// 5 800 200 200 7 // 4 410 200 200 // 4 310 200 100
 
 // BUGS:
 // Only philo have both mutaxes pointing to the same fork.
@@ -43,23 +41,26 @@
 void	print_state(t_philo *philo, t_state state)
 {
 	pthread_mutex_lock(philo->write_mutex);
-	if (state == 0)
-	printf("%5zu ms -> %d is thinking.\n", get_time(&philo->start), philo->index);
-	else if (state == 1)
-	printf("%5zu ms -> %d is eating.\n", get_time(&philo->start), philo->index);
-	else if (state == 2)
-	printf("%5zu ms -> %d is sleeping.\n", get_time(&philo->start), philo->index);
-	else if (state == 3)
-	printf("%5zu ms -> %d has taken a fork.\n", get_time(&philo->start), philo->index);
-	else if (state == 4)
-	printf("%5zu ms -> %d is "RED"DEAD"RESET".\n", get_time(&philo->start), philo->index);
+	if (philo->dead == false)
+	{
+		if (state == 0)
+		printf("%5zu ms -> %d is thinking.\n", get_time(&philo->start), philo->id);
+		else if (state == 1)
+		printf("%5zu ms -> %d is eating.\n", get_time(&philo->start), philo->id);
+		else if (state == 2)
+		printf("%5zu ms -> %d is sleeping.\n", get_time(&philo->start), philo->id);
+		else if (state == 3)
+		printf("%5zu ms -> %d has taken a fork.\n", get_time(&philo->start), philo->id);
+		else if (state == 4)
+		printf("%5zu ms -> %d is "RED"DEAD"RESET".\n", get_time(&philo->start), philo->id);
+	}
 	pthread_mutex_unlock(philo->write_mutex);
 }
 
 void	sleeping(t_philo *philo)
 {
 	print_state(philo, SLEEPING);
-	ft_milisleep(philo->time_to_sleep);
+	ft_milisleep(philo->time_to_sleep, philo->dead);
 }
 
 // It prints that philo is sleeping and puts him to sleep and incr times_eaten.
@@ -67,7 +68,7 @@ void	eating(t_philo *philo)
 {
 	print_state(philo, EATING);
 	philo->last_meal_ms = get_time(&philo->start);
-	ft_milisleep(philo->time_to_eat);
+	ft_milisleep(philo->time_to_eat, philo->dead);
 	philo->times_eaten++;
 }
 
@@ -76,7 +77,7 @@ void	thinking(t_philo *philo)
 	print_state(philo, THINKING);
 }
 // 
-// routine for odd index philos
+// routine for odd id philos
 void	odd_routine(t_philo *philo)
 {
 	while (philo->dead == false)
@@ -97,7 +98,7 @@ void	odd_routine(t_philo *philo)
 	}
 }
 
-// routine for even index philos
+// routine for even id philos
 void	even_routine(t_philo *philo)
 {
 	while (philo->dead == false)
@@ -124,9 +125,9 @@ void	*routine(void *arg)
 	t_philo	*philo = (t_philo *)arg;
 	// wait while bon_appetit == false; set true after everything is ready.
 	
-	if (philo->index % 2 == 1)
-	ft_milisleep(1);
-	if (philo->index % 2 == 0)
+	if (philo->id % 2 == 1)
+	ft_milisleep(1, false);
+	if (philo->id % 2 == 0)
 	even_routine(philo);
 	else
 	odd_routine(philo);
@@ -183,3 +184,4 @@ int main(int argc, char **argv)
 // Separate odd/even routines in code. // DONE
 // Create death check by waiter, because philo might be sleeping. // DONE
 // How to change color for DEAD message. // DONE
+// Sim now finishes round. How to correctly finish it once DEAD state. // DONE

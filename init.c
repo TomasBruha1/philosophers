@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:07:39 by tbruha            #+#    #+#             */
-/*   Updated: 2025/04/24 16:32:34 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/05/02 12:54:05 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	init_philos(t_table *table)
 	{
 		if (pthread_create(&table->philos[i].philo, NULL, &routine, &table->philos[i]) != 0)
 			exit(EXIT_FAILURE); // Can't have exit here. prob. return (2)
-		table->philos[i].index = i;
+		table->philos[i].id = i;
 		table->philos[i].time_to_die = table->time_to_die;
 		table->philos[i].time_to_eat = table->time_to_eat;
 		table->philos[i].time_to_sleep = table->time_to_sleep;
