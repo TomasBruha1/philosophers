@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:07:39 by tbruha            #+#    #+#             */
-/*   Updated: 2025/05/02 16:59:36 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/05/04 21:01:02 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,17 +62,17 @@ void	init_program(t_table *table, char **argv)
 		printf("Args are OK.\n"); // both printf's can be in the check function.
 	else
 		printf("Args are NOT OK.\n");
-	usleep(5);
+	usleep(5); // DELETE at he end? Why do I have it here?
 	gettimeofday(&time, NULL); // start time // possible init_time
 	table->start = time.tv_sec * 1000 + time.tv_usec / 1000; // start time
-	table->nbr_of_philos = ft_atoi(argv[1]); // send args to init_philo only?
+	table->nbr_of_philos = ft_atoi(argv[1]);
 	table->time_to_die = ft_atoi(argv[2]);
 	table->time_to_eat = ft_atoi(argv[3]);
 	table->time_to_sleep = ft_atoi(argv[4]);
 	if (argv[5])
-	table->nbr_to_eat = ft_atoi(argv[5]);
+		table->nbr_to_eat = ft_atoi(argv[5]);
 	else
-	table->nbr_to_eat = 0;
+		table->nbr_to_eat = 0;
 	table->fork_mutex = malloc(sizeof(pthread_mutex_t) * table->nbr_of_philos);
 	pthread_mutex_init(table->fork_mutex, NULL);
 	pthread_mutex_init(&table->write_mutex, NULL);

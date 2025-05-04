@@ -6,15 +6,16 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:11:11 by tbruha            #+#    #+#             */
-/*   Updated: 2025/05/02 19:22:18 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/05/04 21:05:14 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// DO NOW: Create and make to work the fifth argument...
+// DO NOW NOW: Check with 20+philos and make sure "DINNER is over" prints last.
+// DO NOW: Check with Valgrind/Helgrind and work on freeing stuff.
+// DO NOW: Do quick Norminette check.
 
 // Check valid input.
 // Free everything if all of them ate enough.
-// How to handle freeing upon "ctrl + c" if no philo should die?
 
 // add start time to each philo as well?
 // How to start the simulation at the same time -> bon_appetit how? NOT NOW
@@ -185,3 +186,5 @@ int main(int argc, char **argv)
 // What if two philos die at the same time? // DONE
 // If philo dies during meal or sleep, does he finished meal/sleep and die... // DONE
 // ... or does he needs to die right away. // DONE
+// How to handle freeing upon "ctrl + c" if no philo should die? Fuck it // DONE
+// DO NOW: Create and make to work the fifth argument... // DONE
