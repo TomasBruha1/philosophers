@@ -6,15 +6,15 @@
 #    By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/15 16:15:26 by tbruha            #+#    #+#              #
-#    Updated: 2025/04/24 15:57:11 by tbruha           ###   ########.fr        #
+#    Updated: 2025/05/05 16:42:46 by tbruha           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= philo
-CFLAGS		= -Wall -Wextra -Werror -g -pthread
+CFLAGS		= -Wall -Wextra -Werror -pthread # -fsanitize=thread
 HEADERS		= -I include/
 RM			= rm -rf # force recursive remove
-CC			= cc
+CC			= gcc
 MAKEFLAGS 	= --no-print-directory # silences "entering, leaving dir..."
 
 SRC		= 	philosophers.c init.c utils.c utils_2.c #src/push_swap.c

@@ -6,17 +6,19 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:11:11 by tbruha            #+#    #+#             */
-/*   Updated: 2025/05/04 21:05:14 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/05/05 16:57:32 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// DO NOW NOW: Check with 20+philos and make sure "DINNER is over" prints last.
 // DO NOW: Check with Valgrind/Helgrind and work on freeing stuff.
-// DO NOW: Do quick Norminette check.
+// DO NOW: Join waiter pthread
 
+// valgrind --leak-check=full ./philo 2 410 200 200
+// valgrind --tool=helgrind ./philo 2 410 200 200 OPTIONAL --log-file=helgrind_output.log
 // Check valid input.
 // Free everything if all of them ate enough.
 
+// philos should start from 1 and not 0.... I'm sad sad, very very sad
 // add start time to each philo as well?
 // How to start the simulation at the same time -> bon_appetit how? NOT NOW
 // what is meal_lock for? // lock when checking the last meal eaten meals_eaten++ maybe?
@@ -31,8 +33,6 @@
 // Only philo have both mutaxes pointing to the same fork. Make special case.
 // Change return to int in init_philos.
 // seg fault on first try for large group of philos (20+), why? Same var?? which one?
-// notes to research:
-// Philosophy -> from Greek, philosophia, literally "love of wisdom".
 
 #include "include/philosophers.h"
 
@@ -52,6 +52,8 @@ void	print_state(t_philo *philo, t_state state)
 		else if (state == 4)
 		printf("%5zu ms -> %d is "RED"DEAD"RESET".\n", get_time(&philo->start), philo->id);
 	}
+	else if (state == 5)
+		printf("%5zu ms -> Everyone si "GREEN"FULL"RESET". Dinner is over.\n", get_time(&philo->start));
 	pthread_mutex_unlock(philo->write_mutex);
 }
 
@@ -147,8 +149,11 @@ int main(int argc, char **argv)
 		return (2);
 		i++;
 	}
+	if (pthread_join(table.waiter, NULL) != 0)
+		return (2);
 	pthread_mutex_destroy(table.fork_mutex);
 	pthread_mutex_destroy(&table.write_mutex);
+	free(table.philos); // What now? Does it work? I have no idea, check later..
 	return (EXIT_SUCCESS);
 }
 
@@ -188,3 +193,4 @@ int main(int argc, char **argv)
 // ... or does he needs to die right away. // DONE
 // How to handle freeing upon "ctrl + c" if no philo should die? Fuck it // DONE
 // DO NOW: Create and make to work the fifth argument... // DONE
+// Check with 20+philos and make sure "DINNER is over" prints last. // DONE

@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:07:39 by tbruha            #+#    #+#             */
-/*   Updated: 2025/05/04 21:01:02 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/05/05 13:56:48 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,20 @@ int	init_waiter(t_table *table)
 {
 	if (pthread_create(&table->waiter, NULL, &waiter_routine, table))
 		return (2);
-	while (1) // to check on all philos one by one.
-	
-	
-	// dead check
-	// eaten enough
-	// How to check dead check on time?
-	return (0);	
+	return (0);
 }
-
 
 // Initialize each philo in philos array.
 void	init_philos(t_table *table)
 {
 	size_t	i;
-	
+
 	i = 0;
 	table->philos = malloc(sizeof(t_philo) * table->nbr_of_philos);
 	while (i < table->nbr_of_philos)
 	{
-		if (pthread_create(&table->philos[i].philo, NULL, &routine, &table->philos[i]) != 0)
+		if (pthread_create(&table->philos[i].philo, NULL, &routine,
+				&table->philos[i]) != 0)
 			exit(EXIT_FAILURE); // Can't have exit here. prob. return (2)
 		table->philos[i].id = i;
 		table->philos[i].time_to_die = table->time_to_die;
@@ -44,7 +38,8 @@ void	init_philos(t_table *table)
 		table->philos[i].time_to_sleep = table->time_to_sleep;
 		table->philos[i].start = table->start;
 		table->philos[i].fork_left_mutex = &table->fork_mutex[i];
-		table->philos[i].fork_right_mutex = &table->fork_mutex[(i + 1) % table->nbr_of_philos];
+		table->philos[i].fork_right_mutex = &table->fork_mutex[(i + 1)
+			% table->nbr_of_philos];
 		table->philos[i].times_eaten = 0;
 		table->philos[i].last_meal_ms = 0;
 		table->philos[i].write_mutex = &table->write_mutex;

@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:08:33 by tbruha            #+#    #+#             */
-/*   Updated: 2025/05/04 20:48:08 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/05/05 13:56:29 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ typedef enum e_state
 	EATING,
 	SLEEPING,
 	FORK,
-	DEAD
+	DEAD,
+	FULL
 }			t_state;
 
 // STRUCTS
@@ -45,16 +46,16 @@ typedef enum e_state
 typedef struct s_philo
 {
 	pthread_t		philo;
-	int     		id;
+	int				id;
 	size_t			time_to_die;
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
-	size_t			last_meal_ms; // if current - last > time_to_die == DEAD. Check by waiter.
+	size_t			last_meal_ms;
 	size_t			start;
 	pthread_mutex_t	*fork_left_mutex;
 	pthread_mutex_t	*fork_right_mutex;
 	pthread_mutex_t	*write_mutex;
-	pthread_mutex_t *meal_mutex;
+	pthread_mutex_t	*meal_mutex;
 	size_t			times_eaten;
 	bool			dead;
 }					t_philo;
@@ -72,7 +73,7 @@ typedef struct s_table
 	pthread_mutex_t	meal_mutex; // not sure why. to check last meal??
 	pthread_mutex_t	write_mutex;
 	size_t			start;
-	size_t     		nbr_to_eat; // array?
+	size_t			nbr_to_eat;
 	bool			sim;
 }					t_table;
 
@@ -84,7 +85,7 @@ void		init_program(t_table *table, char **argv);
 int			init_waiter(t_table *table);
 
 // utils.c
-void		error_args();
+void		error_args(void);
 size_t		get_time(void *arg);
 size_t		ft_atoi(char *str);
 int			check_args(char **argv);

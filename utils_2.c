@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 19:49:21 by tbruha            #+#    #+#             */
-/*   Updated: 2025/05/04 20:53:57 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/05/05 13:45:24 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@ void	dead_check(t_table *table)
 {
 	size_t	i;
 	size_t	current;
-	
+
 	i = 0;
 	while (i < table->nbr_of_philos)
 	{
 		current = get_time(&table->start);
-		if ((current - table->philos[i].last_meal_ms) > table->philos[i].time_to_die)
+		if ((current - table->philos[i].last_meal_ms)
+			> table->philos[i].time_to_die)
 		{
 			print_state(&table->philos[i], DEAD);
 			table->sim = false;
@@ -34,13 +35,12 @@ void	dead_check(t_table *table)
 		}
 		i++;
 	}
-	
 }
 
 void	eaten_enough(t_table *table)
 {
 	size_t	i;
-	
+
 	i = 0;
 	while (i < table->nbr_of_philos)
 	{
@@ -48,22 +48,23 @@ void	eaten_enough(t_table *table)
 			return ;
 		i++;
 	}
+	table->sim = false;
 	i = 0;
 	while (i < table->nbr_of_philos)
 	{
 		table->philos[i].dead = true;
 		i++;
 	}
-	table->sim = false;
-	printf("Everyone is "GREEN"FULL"RESET". Dinner is over.\n");
+	print_state(&table->philos[0], FULL);
 	return ;
 }
 
 // Loops to check dead state and if they ate enough, then print the message.
-void    *waiter_routine(void *arg)
+void	*waiter_routine(void *arg)
 {
-	t_table 	*table = (t_table *)arg;
-	
+	t_table		*table;
+
+	table = (t_table *)arg;
 	while (table->sim == true)
 	{
 		dead_check(table);

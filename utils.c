@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 15:14:43 by tbruha            #+#    #+#             */
-/*   Updated: 2025/05/02 19:20:44 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/05/05 16:44:30 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ int	check_args(char **argv)
 }
 
 // Prints error message and exit upon wrong number of inputs.
-void	error_args()
+void	error_args(void)
 {
 	printf("Wrong number of arguments. Input 4 or 5 values to proceed.\n");
-	exit(EXIT_FAILURE);
+	exit(EXIT_FAILURE); // exit is illegal, fix to return 0/1
 }
 
 // char to int, size_t actually which is unsigned int
