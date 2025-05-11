@@ -6,7 +6,7 @@
 /*   By: tbruha <tbruha@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 12:07:39 by tbruha            #+#    #+#             */
-/*   Updated: 2025/05/05 13:56:48 by tbruha           ###   ########.fr       */
+/*   Updated: 2025/05/11 15:38:37 by tbruha           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	init_philos(t_table *table)
 		table->philos[i].time_to_die = table->time_to_die;
 		table->philos[i].time_to_eat = table->time_to_eat;
 		table->philos[i].time_to_sleep = table->time_to_sleep;
-		table->philos[i].start = table->start;
+		table->philos[i].start = table->start; // put to second loop with p_create
 		table->philos[i].fork_left_mutex = &table->fork_mutex[i];
 		table->philos[i].fork_right_mutex = &table->fork_mutex[(i + 1)
 			% table->nbr_of_philos];
